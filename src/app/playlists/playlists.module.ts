@@ -7,6 +7,7 @@ import { PlaylistListComponent } from './components/playlist-list/playlist-list.
 import { PlaylistListItemComponent } from './components/playlist-list-item/playlist-list-item.component';
 import { PlaylistDetailsComponent } from './components/playlist-details/playlist-details.component';
 import { PlaylistFormComponent } from './components/playlist-form/playlist-form.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -19,10 +20,8 @@ import { PlaylistFormComponent } from './components/playlist-form/playlist-form.
   ],
   imports: [
     CommonModule,
-    PlaylistsRoutingModule
-  ],
-  exports: [
-    PlaylistViewComponent
+    PlaylistsRoutingModule,
+    SharedModule
   ]
 })
 export class PlaylistsModule { }
