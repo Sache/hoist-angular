@@ -70,3 +70,7 @@ ng g c shared/card --export
 ng g p shared/yesno --export 
 
 
+# Interfaces / Models
+ng g m core -m app
+ng g i core/models/playlist
+
