@@ -63,6 +63,7 @@ ng g c playlists/components/playlist-form
 ng g m shared -m app
 ng g c shared/card --export
 
-
+# Bootstrap
+ npm install bootstrap
 
 
