@@ -29,5 +29,17 @@ Angular CLI: 10.1.0
 # New project
 cd ..
 ng new hoist-angular
+ng.cmd new hoist-angular
+
 ? Would you like to add Angular routing? Yes
-? Which stylesheet format would you like to use? SCSS   [ https://sass-lang.com/documentation/syntax#scss                ]
+? Which stylesheet format would you like to use? SCSS   [ https://sass-lang.com/documentation/syntax#scss ]
+
+# Start project
+cd hoist-angular
+
+ng serve 
+ng s -o
+
+npm run start
+npm start
+
