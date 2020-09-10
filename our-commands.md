@@ -46,3 +46,17 @@ npm start
 # VS Code extenstions
 https://marketplace.visualstudio.com/items?itemName=Angular.ng-template
 https://marketplace.visualstudio.com/items?itemName=johnpapa.Angular2
+
+# Generators
+ng g m playlists -m app --routing true
+
+ng g c playlists/containers/playlist-view
+
+ng g c playlists/components/playlist-list
+ng g c playlists/components/playlist-list-item
+ng g c playlists/components/playlist-details
+ng g c playlists/components/playlist-form
+
+
+
+
