@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { PlaylistViewComponent } from './containers/playlist-view/playlist-view.component';
+import { NgModule } from '@angular/core';
 
 const routes: Routes = [
   {
