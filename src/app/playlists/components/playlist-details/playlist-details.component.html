@@ -10,14 +10,20 @@
 
   <dt>Public:</dt>
   <!-- [style.border]=" '1px solid ' " -->
-  <dd 
+  
+  <!-- <dd 
   style="border-bottom:1px solid black"
   [style.color]="playlist.public ? 'red' : 'blue'"
   [style.border-bottom-color]="playlist.public ? 'red' : 'blue'"
-  
-  >
-    {{ playlist.public | yesno }}
-  </dd>
+    >{{ playlist.public | yesno }}</dd> -->
+
+  <dd 
+  style="border-bottom:1px solid black"
+  [ngStyle]="{
+    color: playlist.public ? 'red' : 'blue',
+    'border-bottom-color': playlist.public ? 'red' : 'blue'
+  }">{{ playlist.public | yesno }}</dd>
+
   <!-- <dd>{{ playlist.public ? 'Yes' : 'No' }}</dd> -->
   <!-- <dd>{{ yesno(playlist.options.public) }}</dd> -->
 
