@@ -1,1 +1,17 @@
-<p>playlist-details works!</p>
+<!-- dl>(dt{label}+dd{value})*3 -->
+
+<pre>{{ playlist | json }}</pre>
+
+<dl>
+  <dt>Name:</dt>
+  <dd>{{ playlist.name | titlecase  }}</dd>
+
+  <dt>Public:</dt>
+  <dd>{{ playlist.public | yesno:'yeah':'nope' | titlecase }}</dd>
+  <!-- <dd>{{ playlist.public ? 'Yes' : 'No' }}</dd> -->
+  <!-- <dd>{{ yesno(playlist.options.public) }}</dd> -->
+
+  <dt>Description:</dt>
+  <dd>{{ playlist.description }}</dd>
+
+</dl>

@@ -7,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlaylistDetailsComponent implements OnInit {
 
+  playlist = {
+    name: 'pancakes',
+    public: false,
+    description: 'Test'
+  }
+
+  // yesno(option: string) {
+  //   return option ? 'Yes' : 'No';
+  // }
+
   constructor() { }
 
   ngOnInit(): void {
   }
+
 
 }

@@ -66,4 +66,7 @@ ng g c shared/card --export
 # Bootstrap
  npm install bootstrap
 
+# Pipe
+ng g p shared/yesno --export 
+
 
