@@ -4,23 +4,25 @@
 
   </div>
   <div class="col">
-
-    
-    <!-- <div *ngIf="mode == 'details'">
+    <div *ngIf="mode == 'details'">
       <app-playlist-details></app-playlist-details>
       <button class="btn btn-info" (click)="edit()">Edit</button>
-    </div> -->
-    
-    <!-- <ng-template [ngIf]=" mode == 'details' " 
-                 [ngIfThen]="detailsTplRef"
-                 [ngIfElse]="formTplRef">
-    </ng-template> -->
-    
-    <div *ngIf="mode == 'details' then detailsTplRef else formTplRef"></div>
+    </div>
+  
+  
+    <div *ngIf="mode == 'details'">
+      <app-playlist-form></app-playlist-form>
+      <button class="btn btn-danger" (click)="cancel()">Cancel</button>
+      <button class="btn btn-success" (click)="save()">Save</button>
+    </div>
     
   </div>
 </div>
 <!-- {{}} [] () #  * $event -->
+  <!-- 
+  <div *ngIf="mode == 'details'; 
+              then detailsTplRef; 
+              else formTplRef"></div>
 
 
 <ng-template #detailsTplRef>
@@ -37,4 +39,4 @@
     <button class="btn btn-danger" (click)="cancel()">Cancel</button>
     <button class="btn btn-success" (click)="save()">Save</button>
   </div>
-</ng-template>
+</ng-template> -->
