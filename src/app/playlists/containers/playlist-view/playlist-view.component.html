@@ -26,7 +26,7 @@
       <div *ngSwitchCase=" 'form' ">
         <app-playlist-form
         (cancelClicked)="cancel()"
-        (saveClicked)="save()"
+        (saveClicked)="save($event)"
         [playlist]="selected"
         ></app-playlist-form>
 

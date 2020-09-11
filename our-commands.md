@@ -84,3 +84,14 @@ ng g p shared/yesno --export
 ng g m core -m app
 ng g i core/models/playlist
 
+
+# Music Search
+<!-- Create module -->
+<!-- Create container -->
+<!-- Some mock data - {id, name, imageUrl}[] -->
+
+<!-- Create form comp -->
+<!-- https://getbootstrap.com/docs/4.5/components/input-group/#button-addons -->
+
+<!-- Create results comp -->
+<!-- https://getbootstrap.com/docs/4.5/components/card/#card-groups -->

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { Playlist } from 'src/app/core/models/playlist';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-playlist-form',
@@ -23,8 +24,21 @@ export class PlaylistFormComponent implements OnInit, OnChanges {
   @Output()
   saveClicked = new EventEmitter<Playlist>()
 
-  save() {
-    this.saveClicked.emit({...this.draft})
+  save(form: NgForm) {
+    const {
+      name,
+      bananas: {
+        public: isPublic,
+        description
+      } 
+    } = form.value;
+
+    this.saveClicked.emit({
+      ...this.playlist,
+      name,
+      public: isPublic,
+      description
+    })
   }
 
   constructor() {
@@ -37,16 +51,16 @@ export class PlaylistFormComponent implements OnInit, OnChanges {
       ...this.playlist
     }
   }
-  
+
   ngOnInit(): void {
     console.log('ngOnInit')
   }
-  
-  ngDoCheck(){
+
+  ngDoCheck() {
     console.log('ngDoCheck')
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     console.log('ngOnDestroy')
   }
 
