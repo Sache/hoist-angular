@@ -1,1 +1,23 @@
-<p>playlist-form works!</p>
+<pre>{{playlist | json}}</pre>
+
+<!-- (input)=" playlist.name = $event.target.value" -->
+
+<div class="form-group">
+  <label>Name:</label>
+  <input type="text" class="form-control" 
+    [value]="playlist.name"
+    #nameInputREf>
+  {{ 170 - nameInputREf.value.length }} / 170
+</div>
+
+<div class="form-group">
+  <label><input type="checkbox" [checked]="playlist.public"> Public</label>
+</div>
+
+<div class="form-group">
+  <label>Description</label>
+  <textarea 
+  (input)=" playlist.description = $event.target.value" 
+  
+  class="form-control" [value]="playlist.description"></textarea>
+</div>

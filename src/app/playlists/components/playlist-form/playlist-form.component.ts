@@ -9,9 +9,10 @@ import { Playlist } from 'src/app/core/models/playlist';
 export class PlaylistFormComponent implements OnInit {
 
   playlist: Playlist = {
-    name: '123',
+    id: 123,
+    name: 'test',
     public: true,
-    description: 'Test'
+    description: 'test'
   }
 
   constructor() { }
