@@ -4,7 +4,16 @@
 <!-- .list-group>.list-group-item*3 -->
 
 <div class="list-group">
-  <div class="list-group-item">Text 1</div>
-  <div class="list-group-item">Text 2</div>
-  <div class="list-group-item">Text 3</div>
+  
+  <!-- <ng-template ngFor [ngForOf]="playlist" let-playlist="$implicit" let-i="index">
+    <div class="list-group-item">
+      {{i+1}}. {{playlist.name}}
+    </div>
+  </ng-template> -->
+
+
+  <div class="list-group-item" *ngFor="let playlist of playlist; index as i">
+    {{i+1}}. {{playlist.name}}
+  </div>
+
 </div>

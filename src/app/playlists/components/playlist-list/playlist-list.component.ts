@@ -1,4 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Playlist } from 'src/app/core/models/playlist';
+import { NgForOfContext, NgForOf } from '@angular/common';
+
+NgForOf
+NgForOfContext
 
 @Component({
   selector: 'app-playlist-list',
@@ -8,6 +13,29 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   // encapsulation: ViewEncapsulation.Emulated
 })
 export class PlaylistListComponent implements OnInit {
+
+
+  playlist: Playlist[] = [
+    {
+      id: 123,
+      name: 'pancakes 1',
+      public: true,
+      description: 'Test'
+    },
+    {
+      id: 234,
+      name: 'pancakes 2',
+      public: true,
+      description: 'Test'
+    },
+    {
+      id: 345,
+      name: 'pancakes 3',
+      public: true,
+      description: 'Test'
+    },
+  ]
+
 
   constructor() { }
 
