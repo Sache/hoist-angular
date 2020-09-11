@@ -31,7 +31,7 @@ export class PlaylistViewComponent implements OnInit {
     },
   ]
   
-  selected:Playlist = this.playlists[0]
+  selected:Playlist|null = null
   
   constructor() { }
 

@@ -7,9 +7,14 @@
       [items]="playlists">
     </app-playlist-list>
     
-    <app-playlist-list     
+    <!-- <app-playlist-list     
       (selectedChange)="selected = $event "
       [selected]="selected"
+      [items]="playlists">
+    </app-playlist-list> -->
+    
+    <app-playlist-list     
+      [(selected)]="selected"
       [items]="playlists">
     </app-playlist-list>
         
@@ -21,7 +26,7 @@
   </div>
   <div class="col">
 
-    <div [ngSwitch]="mode">
+    <div [ngSwitch]="mode" *ngIf="selected">
 
       <div *ngSwitchDefault>
         
@@ -33,7 +38,10 @@
       </div>
 
       <div *ngSwitchCase=" 'form' ">
-        <app-playlist-form></app-playlist-form>
+        <app-playlist-form
+        [playlist]="selected"
+        ></app-playlist-form>
+
         <button class="btn btn-danger" (click)="cancel()">Cancel</button>
         <button class="btn btn-success" (click)="save()">Save</button>
       </div>
