@@ -4,22 +4,23 @@
 <div class="form-group">
   <label>Name:</label>
   <input type="text" class="form-control" 
-    [value]="draft.name"
-    (input)=" draft.name = $event.target.value">
+    ngModel
+    [ngModel]="draft.name"
+    (ngModelChange)=" draft.name = $event">
   {{ 170 - draft.name.length }} / 170
 </div>
 
 <div class="form-group">
   <label><input type="checkbox" 
-    (change)="draft.public = $event.target.checked"
-    [checked]="draft.public"> Public</label>
+    (ngModelChange)="draft.public = $event "
+    [ngModel]="draft.public"> Public</label>
 </div>
 
 <div class="form-group">
   <label>Description</label>
   <textarea 
-  [value]="draft.description"
-  (input)=" draft.description = $event.target.value" 
+  [ngModel]="draft.description"
+  (ngModelChange)=" draft.description = $event" 
   
   class="form-control" ></textarea>
 </div>

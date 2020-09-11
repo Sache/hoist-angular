@@ -21,10 +21,10 @@ export class PlaylistFormComponent implements OnInit, OnChanges {
   }
 
   @Output()
-  saveClicked = new EventEmitter()
+  saveClicked = new EventEmitter<Playlist>()
 
   save() {
-    this.saveClicked.emit()
+    this.saveClicked.emit(this.draft)
   }
 
   constructor() {
@@ -34,9 +34,7 @@ export class PlaylistFormComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     console.log('ngOnChanges', changes)
     this.draft = {
-      ...this.playlist,
-      // tracks:[...this.playlist.tracks]
-      // tracks: this.playlist.tracks.slice()
+      ...this.playlist
     }
   }
   

@@ -9,7 +9,6 @@ import { PlaylistDetailsComponent } from './components/playlist-details/playlist
 import { PlaylistFormComponent } from './components/playlist-form/playlist-form.component';
 import { SharedModule } from '../shared/shared.module';
 
-
 @NgModule({
   declarations: [
     PlaylistViewComponent,

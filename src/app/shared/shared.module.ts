@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CardComponent } from './card/card.component';
 import { YesnoPipe } from './yesno.pipe';
 
-
+import {FormsModule} from '@angular/forms'
 
 @NgModule({
   declarations: [
@@ -11,11 +11,13 @@ import { YesnoPipe } from './yesno.pipe';
     YesnoPipe
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   exports: [
     CardComponent,
-    YesnoPipe
+    YesnoPipe,
+    FormsModule
   ]
 })
 export class SharedModule { }
