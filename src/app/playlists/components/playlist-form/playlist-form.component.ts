@@ -24,7 +24,7 @@ export class PlaylistFormComponent implements OnInit, OnChanges {
   saveClicked = new EventEmitter<Playlist>()
 
   save() {
-    this.saveClicked.emit(this.draft)
+    this.saveClicked.emit({...this.draft})
   }
 
   constructor() {
