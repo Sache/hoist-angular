@@ -9,7 +9,7 @@ import { Playlist } from 'src/app/core/models/playlist';
 export class PlaylistViewComponent implements OnInit {
 
   mode: 'details' | 'form' = 'details'
-    
+
   playlists: Playlist[] = [
     {
       id: 123,
@@ -30,14 +30,13 @@ export class PlaylistViewComponent implements OnInit {
       description: 'Test'
     },
   ]
-  
-  selected:Playlist|null = null
-  
+
+  selected: Playlist | null = null
+
   constructor() { }
 
-  selectPlaylist(playlist:Playlist){
-    if(playlist.public)
-    this.selected = playlist
+  selectPlaylist(playlist: Playlist) {
+    this.selected = playlist == this.selected ? null : playlist
   }
 
   ngOnInit(): void {

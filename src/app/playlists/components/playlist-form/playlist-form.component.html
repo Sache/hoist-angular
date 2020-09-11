@@ -1,24 +1,25 @@
 <pre>{{playlist | json}}</pre>
+<pre>{{draft | json}}</pre>
 
 <div class="form-group">
   <label>Name:</label>
   <input type="text" class="form-control" 
-    [value]="playlist.name"
-    (input)=" playlist.name = $event.target.value">
-  {{ 170 - playlist.name.length }} / 170
+    [value]="draft.name"
+    (input)=" draft.name = $event.target.value">
+  {{ 170 - draft.name.length }} / 170
 </div>
 
 <div class="form-group">
   <label><input type="checkbox" 
-    (change)="playlist.public = $event.target.checked"
-    [checked]="playlist.public"> Public</label>
+    (change)="draft.public = $event.target.checked"
+    [checked]="draft.public"> Public</label>
 </div>
 
 <div class="form-group">
   <label>Description</label>
   <textarea 
-  [value]="playlist.description"
-  (input)=" playlist.description = $event.target.value" 
+  [value]="draft.description"
+  (input)=" draft.description = $event.target.value" 
   
   class="form-control" ></textarea>
 </div>
