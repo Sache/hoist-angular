@@ -5,17 +5,22 @@
   </div>
   <div class="col">
 
-    <ng-template [ngIf]=" mode == 'details' " 
+    
+    <!-- <div *ngIf="mode == 'details'">
+      <app-playlist-details></app-playlist-details>
+      <button class="btn btn-info" (click)="edit()">Edit</button>
+    </div> -->
+    
+    <!-- <ng-template [ngIf]=" mode == 'details' " 
                  [ngIfThen]="detailsTplRef"
                  [ngIfElse]="formTplRef">
-    </ng-template>
-
-
+    </ng-template> -->
+    
+    <div *ngIf="mode == 'details' then detailsTplRef else formTplRef"></div>
+    
   </div>
 </div>
-
-
-
+<!-- {{}} [] () #  * $event -->
 
 
 <ng-template #detailsTplRef>
