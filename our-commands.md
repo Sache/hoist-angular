@@ -1,3 +1,13 @@
+# Running project
+git clone https://bitbucket.org/ev45ive/hoist-angular.git project-directory
+cd project-directory
+npm install
+npm start
+
+# Fetching updates
+git stash -u
+git pull -f
+
 # Software versions
 
 ## VS Code
