@@ -20,15 +20,14 @@ export class PlaylistListComponent implements OnInit {
   @Input('items')
   playlists: Playlist[] = []
 
+  @Input()
   selected: Playlist | null = null;
 
   @Output('selectedChange')
   selectedChange = new EventEmitter<Playlist>()
 
   select(playlist: Playlist) {
-    // this.selectedChange.subscribe(listner)
     this.selectedChange.emit(playlist)
-    this.selected = playlist
   }
 
   constructor() { }

@@ -2,9 +2,17 @@
   <div class="col">
     
     <app-playlist-list     
-      (selectedChange)="selected = $event "
+      (selectedChange)=" selectPlaylist($event)"
+      [selected]="selected"
       [items]="playlists">
     </app-playlist-list>
+    
+    <app-playlist-list     
+      (selectedChange)="selected = $event "
+      [selected]="selected"
+      [items]="playlists">
+    </app-playlist-list>
+        
 
     <!-- <input type="text"
       (change)="pl.name = $event.target.value"

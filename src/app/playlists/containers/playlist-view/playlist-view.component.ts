@@ -20,7 +20,7 @@ export class PlaylistViewComponent implements OnInit {
     {
       id: 234,
       name: 'pancakes 2',
-      public: true,
+      public: false,
       description: 'Test'
     },
     {
@@ -35,8 +35,14 @@ export class PlaylistViewComponent implements OnInit {
   
   constructor() { }
 
+  selectPlaylist(playlist:Playlist){
+    if(playlist.public)
+    this.selected = playlist
+  }
+
   ngOnInit(): void {
   }
+
 
   edit() {
     this.mode = 'form'
