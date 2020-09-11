@@ -1,6 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Playlist } from 'src/app/core/models/playlist';
-
 
 @Component({
   selector: 'app-playlist-details',
@@ -10,18 +9,16 @@ import { Playlist } from 'src/app/core/models/playlist';
 export class PlaylistDetailsComponent implements OnInit {
 
   @Input()
-  playlist: Playlist = {
-    id:123,
-    name: 'pancakes',
-    public: true,
-    description: 'Test'
-  }
+  playlist!: Playlist
 
-  // yesno(option: string) {
-  //   return option ? 'Yes' : 'No';
+  @Output()
+  editClicked = new EventEmitter()
+
+  // constructor(
+  //   private parent: PlaylistViewComponent
+  // ) { 
+  //   parent.edit()
   // }
-
-  constructor() { }
 
   ngOnInit(): void {
   }

@@ -1,27 +1,11 @@
 <div class="row">
   <div class="col">
-    
-    <app-playlist-list     
-      (selectedChange)=" selectPlaylist($event)"
-      [selected]="selected"
-      [items]="playlists">
-    </app-playlist-list>
-    
-    <!-- <app-playlist-list     
-      (selectedChange)="selected = $event "
-      [selected]="selected"
-      [items]="playlists">
-    </app-playlist-list> -->
-    
+        
     <app-playlist-list     
       [(selected)]="selected"
       [items]="playlists">
     </app-playlist-list>
         
-
-    <!-- <input type="text"
-      (change)="pl.name = $event.target.value"
-      [value]="selected.name"> -->
 
   </div>
   <div class="col">
@@ -31,10 +15,10 @@
       <div *ngSwitchDefault>
         
         <app-playlist-details
+          (editClicked)="edit()"
           [playlist]="selected">
         </app-playlist-details>
 
-        <button class="btn btn-info" (click)="edit()">Edit</button>
       </div>
 
       <div *ngSwitchCase=" 'form' ">
@@ -42,36 +26,9 @@
         [playlist]="selected"
         ></app-playlist-form>
 
-        <button class="btn btn-danger" (click)="cancel()">Cancel</button>
-        <button class="btn btn-success" (click)="save()">Save</button>
       </div>
 
     </div>
 
   </div>
 </div>
-<!-- {{}} [] () #  * $event -->
-
-
-
-<!-- 
-  <div *ngIf="mode == 'details'; 
-              then detailsTplRef; 
-              else formTplRef"></div>
-
-
-<ng-template #detailsTplRef>
-  <div>
-    <app-playlist-details></app-playlist-details>
-    <button class="btn btn-info" (click)="edit()">Edit</button>
-  </div>
-</ng-template>
-
-
-<ng-template #formTplRef>
-  <div>
-    <app-playlist-form></app-playlist-form>
-    <button class="btn btn-danger" (click)="cancel()">Cancel</button>
-    <button class="btn btn-success" (click)="save()">Save</button>
-  </div>
-</ng-template> -->
