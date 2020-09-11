@@ -15,14 +15,16 @@
       <div *ngSwitchDefault>
         
         <app-playlist-details
-          (editClicked)="edit()"
-          [playlist]="selected">
+        (editClicked)="edit()"
+        [playlist]="selected">
         </app-playlist-details>
 
       </div>
 
       <div *ngSwitchCase=" 'form' ">
         <app-playlist-form
+        (cancelClicked)="cancel()"
+        (saveClicked)="save()"
         [playlist]="selected"
         ></app-playlist-form>
 

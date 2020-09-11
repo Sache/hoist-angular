@@ -11,10 +11,19 @@ export class PlaylistFormComponent implements OnInit {
   @Input()
   playlist!: Playlist 
 
-
   @Output() 
   cancelClicked = new EventEmitter();
 
+  cancel(){
+    this.cancelClicked.emit()
+  }
+  
+  @Output()
+  saveClicked = new EventEmitter()
+
+  save(){
+    this.saveClicked.emit()
+  }
 
   constructor() { }
 
