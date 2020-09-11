@@ -5,7 +5,7 @@
   <div class="list-group-item"
     *ngFor="let playlist of playlists; index as i"
     
-    [class.active]="selected.id == playlist.id"
+    [class.active]="selected && selected.id == playlist.id"
 
     (click)="select(playlist)">
     {{i+1}}. {{playlist.name}}

@@ -1,6 +1,14 @@
 <div class="row">
   <div class="col">
-    <app-playlist-list></app-playlist-list>
+    
+    <app-playlist-list     
+      (selectedChange)="selected = $event "
+      [items]="playlists">
+    </app-playlist-list>
+
+    <!-- <input type="text"
+      (change)="pl.name = $event.target.value"
+      [value]="selected.name"> -->
 
   </div>
   <div class="col">
@@ -8,7 +16,11 @@
     <div [ngSwitch]="mode">
 
       <div *ngSwitchDefault>
-        <app-playlist-details></app-playlist-details>
+        
+        <app-playlist-details
+          [playlist]="selected">
+        </app-playlist-details>
+
         <button class="btn btn-info" (click)="edit()">Edit</button>
       </div>
 
