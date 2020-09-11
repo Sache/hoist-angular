@@ -1,19 +1,16 @@
-
-
-<!-- .list-group>.list-group-item{Text $}*3 -->
-<!-- .list-group>.list-group-item*3 -->
+<!-- class="active" -->
 
 <div class="list-group">
   
-  <!-- <ng-template ngFor [ngForOf]="playlist" let-playlist="$implicit" let-i="index">
-    <div class="list-group-item">
-      {{i+1}}. {{playlist.name}}
-    </div>
-  </ng-template> -->
+  <div class="list-group-item"
+    *ngFor="let playlist of playlists; index as i"
+    
+    [class.active]="selected.id == playlist.id"
 
-
-  <div class="list-group-item" *ngFor="let playlist of playlist; index as i">
+    (click)="select(playlist)">
     {{i+1}}. {{playlist.name}}
   </div>
 
 </div>
+
+{{ selected | json }}

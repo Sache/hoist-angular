@@ -14,8 +14,7 @@ NgForOfContext
 })
 export class PlaylistListComponent implements OnInit {
 
-
-  playlist: Playlist[] = [
+  playlists: Playlist[] = [
     {
       id: 123,
       name: 'pancakes 1',
@@ -35,11 +34,20 @@ export class PlaylistListComponent implements OnInit {
       description: 'Test'
     },
   ]
+  
+  selected:Playlist = this.playlists[0]
 
+  select(playlist: Playlist) {
+    this.selected =  playlist
+  }
 
   constructor() { }
 
   ngOnInit(): void {
+    setInterval(()=>{
+      if(this.playlists.length)
+        this.playlists.unshift(this.playlists.pop()!)
+    },1000)
   }
 
 }
