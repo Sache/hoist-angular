@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Playlist } from 'src/app/core/models/playlist';
 
 @Component({
@@ -11,7 +11,10 @@ export class PlaylistFormComponent implements OnInit {
   @Input()
   playlist!: Playlist 
 
-  
+
+  @Output() 
+  cancelClicked = new EventEmitter();
+
 
   constructor() { }
 

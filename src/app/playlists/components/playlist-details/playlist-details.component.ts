@@ -14,6 +14,10 @@ export class PlaylistDetailsComponent implements OnInit {
   @Output()
   editClicked = new EventEmitter()
 
+  edit(){
+    this.editClicked.emit()
+  }
+
   // constructor(
   //   private parent: PlaylistViewComponent
   // ) { 
