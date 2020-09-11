@@ -1,14 +1,20 @@
-
-<!-- .row>.col*2{text $$} -->
-
 <div class="row">
   <div class="col">
     <app-playlist-list></app-playlist-list>
     
   </div>
   <div class="col">    
-    <app-playlist-details></app-playlist-details>
-    <app-playlist-form></app-playlist-form>
+
+    <div [hidden]=" mode !== 'details'">
+      <app-playlist-details></app-playlist-details>
+      <button class="btn btn-info" (click)="edit()">Edit</button>
+    </div>
+    
+    <div [hidden]=" mode !== 'form'">
+      <app-playlist-form></app-playlist-form>
+      <button class="btn btn-danger"  (click)="cancel()">Cancel</button>
+      <button class="btn btn-success"  (click)="save()">Save</button>
+    </div>
 
   </div>
 </div>
