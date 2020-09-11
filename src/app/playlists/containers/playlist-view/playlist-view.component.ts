@@ -17,7 +17,7 @@ export class PlaylistViewComponent implements OnInit {
   edit() {
     this.mode = 'form'
   }
-  
+
   cancel() {
     this.mode = 'details'
   }

@@ -4,22 +4,29 @@
 
   </div>
   <div class="col">
-    <div *ngIf="mode == 'details'">
-      <app-playlist-details></app-playlist-details>
-      <button class="btn btn-info" (click)="edit()">Edit</button>
+
+    <div [ngSwitch]="mode">
+
+      <div *ngSwitchDefault>
+        <app-playlist-details></app-playlist-details>
+        <button class="btn btn-info" (click)="edit()">Edit</button>
+      </div>
+
+      <div *ngSwitchCase=" 'form' ">
+        <app-playlist-form></app-playlist-form>
+        <button class="btn btn-danger" (click)="cancel()">Cancel</button>
+        <button class="btn btn-success" (click)="save()">Save</button>
+      </div>
+
     </div>
-  
-  
-    <div *ngIf="mode == 'details'">
-      <app-playlist-form></app-playlist-form>
-      <button class="btn btn-danger" (click)="cancel()">Cancel</button>
-      <button class="btn btn-success" (click)="save()">Save</button>
-    </div>
-    
+
   </div>
 </div>
 <!-- {{}} [] () #  * $event -->
-  <!-- 
+
+
+
+<!-- 
   <div *ngIf="mode == 'details'; 
               then detailsTplRef; 
               else formTplRef"></div>
