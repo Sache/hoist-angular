@@ -11,16 +11,17 @@ export class AlbumSearchComponent implements OnInit {
   message = ''
   results: Album[] = []
 
+  recipeForPancakes = this.service.searchAlbums('batman')
+  
   searchAlbums(query: string) {
-    const resp = this.service.searchAlbums(query)
-
-    resp.subscribe({
+    this.recipeForPancakes = this.service.searchAlbums(query)
+    
+    // Rerun the request by resubscribing
+    this.recipeForPancakes.subscribe({
       next: resp => {
-        console.log(resp)
         this.results = resp.albums.items
       },
       error: error => {
-        console.error(error)
         this.message = error.error.error.message;
       },
       complete: () => { console.log('complete') }
