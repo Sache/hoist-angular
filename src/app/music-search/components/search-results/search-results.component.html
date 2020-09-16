@@ -1,7 +1,7 @@
 
 <div class="card-group">
-  <app-album-card></app-album-card>
-  <app-album-card></app-album-card>
-  <app-album-card></app-album-card>
+
+  <app-album-card *ngFor="let result of results" [album]="result">
+  </app-album-card>
 
 </div>

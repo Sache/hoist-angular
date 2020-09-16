@@ -1,7 +1,10 @@
-<img src="..." class="card-img-top" alt="...">
+<!-- <img src="/assets/download.jpg" class="card-img-top"> -->
+
+<img [src]="album.images[0].url" class="card-img-top">
 
 <div class="card-body">
-  <h5 class="card-title">Card title</h5>
-  <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+  <h5 class="card-title">{{album.name}}</h5>
 </div>
+
+<!-- <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->

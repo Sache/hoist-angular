@@ -9,12 +9,12 @@ const newLocal: Partial<Pick<Album, 'id' | 'name' | 'images'>>[] = [
   },
   {
     id: '234', name: 'Album 234', images: [
-      { height: 400, width: 300, url: 'https://www.placecage.com/c/300/300' }
+      { height: 400, width: 300, url: 'https://www.placecage.com/c/400/400' }
     ]
   },
   {
     id: '345', name: 'Album 345', images: [
-      { height: 400, width: 300, url: 'https://www.placecage.com/c/300/300' }
+      { height: 400, width: 300, url: 'https://www.placecage.com/c/500/500' }
     ]
   },
 ]
