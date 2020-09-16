@@ -20,7 +20,12 @@ import { MusicSearchModule } from './music-search/music-search.module';
     MusicSearchModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [
+    // {
+    //   provide: 'SEARCH_API_URL',
+    //   useValue: 'this app is using different url'
+    // },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule  {}
