@@ -16,8 +16,7 @@ export interface Track extends Entity {
   duration: number
 }
 
-export const result: Playlist | Track = {} as any;
-
+// export const result: Playlist | Track = {} as any;
 
 
 // class Dispatchr{
@@ -93,23 +92,23 @@ export const result: Playlist | Track = {} as any;
 // pv = p
 
 
-class Vector {
-  constructor(public x: number, public y: number) { }
-  multiply(){}
-}
-class Point {
-  constructor(public x: number, public y: number) { }
-  move(){}
-}
+// class Vector {
+//   constructor(public x: number, public y: number) { }
+//   multiply(){}
+// }
+// class Point {
+//   constructor(public x: number, public y: number) { }
+//   move(){}
+// }
 
-const p = new Point(1,2)
-const v = new Vector(1,2)
+// const p = new Point(1,2)
+// const v = new Vector(1,2)
 
-const pv: Point | Vector = v as any
+// const pv: Point | Vector = v as any
 
-if(pv instanceof Point){
-  pv.move()
-}else{
-  // if(pv instanceof Vector)
-  pv.multiply()
-}
+// if(pv instanceof Point){
+//   pv.move()
+// }else{
+//   // if(pv instanceof Vector)
+//   pv.multiply()
+// }
