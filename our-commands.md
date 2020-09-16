@@ -86,8 +86,10 @@ ng g i core/models/playlist
 
 
 # Music Search
-<!-- Create module -->
-<!-- Create container -->
+<!-- UX.png -->
+
+<!-- Create module with --routing -->
+<!-- Create container add to Routing '/search' -->
 <!-- Some mock data - {id, name, imageUrl}[] -->
 
 <!-- Create form comp -->
@@ -95,3 +97,15 @@ ng g i core/models/playlist
 
 <!-- Create results comp -->
 <!-- https://getbootstrap.com/docs/4.5/components/card/#card-groups -->
+
+
+# Music search feature
+
+ng g m music-search --routing -m app
+
+ng g c music-search/containers/album-search
+
+ng g c music-search/components/album-card
+ng g c music-search/components/search-form
+ng g c music-search/components/search-results
+

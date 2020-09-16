@@ -51,7 +51,7 @@ export class PlaylistViewComponent implements OnInit {
     this.mode = 'details'
   }
 
-  save(draft: Playlist) {
+  savePlaylist(draft: Playlist) {
     const index = this.playlists.findIndex(p => p.id == draft.id)
     if (index !== -1) {
       this.playlists[index] = draft
