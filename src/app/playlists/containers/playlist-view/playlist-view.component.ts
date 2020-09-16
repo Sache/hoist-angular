@@ -8,23 +8,27 @@ import { Playlist } from 'src/app/core/models/playlist';
 })
 export class PlaylistViewComponent implements OnInit {
 
+
   mode: 'details' | 'form' = 'details'
 
   playlists: Playlist[] = [
     {
       id: 123,
+      type:'Playlist',
       name: 'pancakes 1',
       public: true,
       description: 'Test'
     },
     {
       id: 234,
+      type:'Playlist',
       name: 'pancakes 2',
       public: false,
       description: 'Test'
     },
     {
       id: 345,
+      type:'Playlist',
       name: 'pancakes 3',
       public: true,
       description: 'Test'
