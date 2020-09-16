@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Album } from 'src/app/core/models/album';
 
-const newLocal: Partial<Pick<Album, 'id' | 'name' | 'images'>>[] = [
+const mockAlbums: Partial<Pick<Album, 'id' | 'name' | 'images'>>[] = [
   {
     id: '123', name: 'Album 123', images: [
       { height: 400, width: 300, url: 'https://www.placecage.com/c/300/300' }
@@ -26,7 +26,12 @@ const newLocal: Partial<Pick<Album, 'id' | 'name' | 'images'>>[] = [
 })
 export class AlbumSearchComponent implements OnInit {
 
-  results: Album[] = newLocal as unknown as Album[]
+  results: Album[] = mockAlbums as unknown as Album[]
+
+  searchAlbums(query:string){
+    
+    this.results = mockAlbums.filter(a => a.name?.includes(query)) as unknown as Album[]
+  }
 
   constructor() { }
 
