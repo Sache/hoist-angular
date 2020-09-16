@@ -6,16 +6,23 @@ import { SEARCH_API_URL } from "./services/tokens";
 import {
   HttpClientModule,
   HttpClient
-} from '@angular/common/http'
+} from '@angular/common/http';
+import { SecurityModule } from './security/security.module'
+import { AuthConfig } from './security/auth.service';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
+    SecurityModule
     // SuperHiperWidgetModule
   ],
   providers: [
+    {
+      provide: AuthConfig,
+      useValue: environment.auth_config
+    },
     // {
     //   provide:HttpHandler,
     //   useClass: MySpeicalHttpHandler

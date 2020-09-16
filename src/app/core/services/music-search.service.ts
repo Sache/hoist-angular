@@ -16,18 +16,13 @@ export class MusicSearchService {
 
   searchAlbums(query = 'batman') {
 
-    const obs = this.http.get('/assets/test.json', {
+    // const obs = this.http.get('/assets/test.json', {
+    const obs = this.http.get(this.api_url, {
       headers: {},
       params: {},
     })
 
-    obs.subscribe({
-      next: resp => { console.log(resp) },
-      error: error => { console.error(error) },
-      complete: () => { console.log('complete') }
-    })
-
-    return mockAlbums as unknown as Album[]
+    return obs;
   }
 }
 
