@@ -32,6 +32,20 @@ export interface Album {
   uri:                    string;
 }
 
+// type someKeys = 'id'|'name'|'images'
+// type albumKeys = keyof Album
+// type PartialAlbum = {
+//   [k in albumKeys]?: Album[k]
+// }
+// type Partial<T> = {
+//   [k in keyof T]?: T[k]
+// }
+// type Readonly<T> = {
+//   readonly [k in keyof T]: T[k]
+// }
+// type PartialAlbum = Partial<Album>
+// type PartialAlbum = Partial<Pick<Album,'id'|'name'>>
+
 export interface ExternalUrls {
   spotify: string;
 }
