@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit, ElementRef, EventEmitter, Output } from '@angular/core';
+import { NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-search-form',
@@ -12,8 +13,11 @@ export class SearchFormComponent implements OnInit {
   @ViewChild('queryElem')
   queryElem?: ElementRef<HTMLInputElement>
 
+  @ViewChild('queryElem', { read: NgModel })
+  queryModel?: NgModel
+
   ngAfterViewInit() {
-    console.log(this.queryElem!)
+    console.log(this.queryModel!)
     this.queryElem?.nativeElement.focus()
   }
 
@@ -25,6 +29,7 @@ export class SearchFormComponent implements OnInit {
   @Output() searchChange = new EventEmitter<string>();
 
   search() {
+    // this.queryModel
     // console.log(query)
     this.searchChange.emit(this.query)
   }
