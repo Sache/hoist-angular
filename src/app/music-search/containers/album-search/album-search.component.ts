@@ -17,11 +17,11 @@ export class AlbumSearchComponent implements OnInit {
     resp.subscribe({
       next: resp => {
         console.log(resp)
-        this.results = resp as Album[];
+        this.results = resp.albums.items
       },
       error: error => {
         console.error(error)
-        this.message = error.message;
+        this.message = error.error.error.message;
       },
       complete: () => { console.log('complete') }
     })
@@ -35,6 +35,7 @@ export class AlbumSearchComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.searchAlbums('batman')
   }
 
 }

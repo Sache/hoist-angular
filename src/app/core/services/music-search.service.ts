@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Album } from '../models/album';
+import { AuthService } from '../security/auth.service';
 import { SEARCH_API_URL } from './tokens';
 
 @Injectable({
@@ -11,15 +12,20 @@ export class MusicSearchService {
 
   constructor(
     @Inject(SEARCH_API_URL) public api_url: string,
-    private http: HttpClient
+    private http: HttpClient,
+    private auth: AuthService
   ) { }
 
   searchAlbums(query = 'batman') {
 
-    // const obs = this.http.get('/assets/test.json', {
     const obs = this.http.get(this.api_url, {
-      headers: {},
-      params: {},
+      headers: {
+        Authorization: `Bearer ${this.auth.getToken()}`
+      },
+      params: {
+        type:'album',
+        q: query
+      },
     })
 
     return obs;

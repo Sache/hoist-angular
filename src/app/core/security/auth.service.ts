@@ -19,7 +19,7 @@ export class AuthService {
   constructor(private config: AuthConfig) { }
 
   init() {
-    debugger
+   
     if (!this.token) {
       this.extractToken()
     }
