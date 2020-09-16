@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, Optional } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -6,13 +6,10 @@ import { environment } from 'src/environments/environment';
 })
 export class MusicSearchService {
 
-  // public api_url = ''
-
   constructor(
+    @Optional() @Inject('SEARCH_API_URL')
     public api_url = environment.api_config.search_url
-  ) {
-    // this.api_url = api_url
-  }
+  ) {}
 
   searchAlbums(query = 'batman') {
     this.api_url
