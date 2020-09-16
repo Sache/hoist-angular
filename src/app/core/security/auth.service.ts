@@ -44,7 +44,7 @@ export class AuthService {
       }
     })
 
-    console.log(`${auth_url}?${p.toString()}`)
+    window.location.replace(`${auth_url}?${p.toString()}`)
   }
 
   extractToken() {
