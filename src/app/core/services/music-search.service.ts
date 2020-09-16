@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Album, AlbumsSearchResponse } from '../models/album';
 import { AuthService } from '../security/auth.service';
 import { SEARCH_API_URL } from './tokens';
-import { map, pluck } from 'rxjs/operators'
+import { catchError, map, pluck } from 'rxjs/operators'
+import { EMPTY, of, throwError } from 'rxjs';
 
 @Injectable({
   // providedIn: CoreModule
@@ -28,9 +29,23 @@ export class MusicSearchService {
       },
     })
       .pipe(
-        map(res => res.albums.items)
+        map(res => res.albums.items),
         // pluck('albums','items')
+        catchError((error) => {
+
+          if (error instanceof HttpErrorResponse) {
+            return throwError(new Error(error.error.error.message))
+          }
+          // return throwError(error)
+          return throwError(new Error('Unexpected Error'))
+
+          // return EMPTY
+          // return [ ]
+          // return [ [] ]
+          // return of( mockAlbums as Album[] )
+        })
       )
+
   }
 }
 

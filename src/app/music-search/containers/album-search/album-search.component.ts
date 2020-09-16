@@ -11,30 +11,17 @@ import { MusicSearchService } from 'src/app/core/services/music-search.service';
 export class AlbumSearchComponent implements OnInit {
   message = ''
   results: Album[] = []
-
+  
+  constructor(private service: MusicSearchService) { }
 
   searchAlbums(query: string) {
-    const recipeForPancakes = this.service.searchAlbums(query)
-
-
-    recipeForPancakes.subscribe({
+    this.service.searchAlbums(query).subscribe({
       next: albums => this.results = albums,
-      error: error => {
-        this.message = error.error.error.message;
-      },
-      complete: () => { console.log('complete') }
+      error: error => this.message = error.message,
     })
-
-    /* do something else in meantime */
   }
-
-  constructor(
-    // @Inject(MusicSearchService)
-    private service: MusicSearchService
-  ) { }
 
   ngOnInit(): void {
     this.searchAlbums('batman')
   }
-
 }
