@@ -1,9 +1,11 @@
 <div class="input-group mb-3">
-  
-  <input class="form-control" placeholder="Search albums" #queryElem>
+
+  <input class="form-control" placeholder="Search albums" #queryElem 
+      [(ngModel)]="query">
+
 
   <div class="input-group-append">
-    <button class="btn btn-outline-secondary" (click)="search(queryElem.value)">
+    <button class="btn btn-outline-secondary" (click)="search()">
       Search
     </button>
   </div>
