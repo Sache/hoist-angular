@@ -1,4 +1,5 @@
-type trackTuple = [Track['id'], Track]
+import { Track } from './Track';
+
 
 export interface Entity {
   id: number
@@ -11,10 +12,6 @@ export interface Playlist extends Entity {
   tracks?: Track[]
 }
 
-export interface Track extends Entity {
-  type: 'Track'
-  duration: number
-}
 
 // export const result: Playlist | Track = {} as any;
 

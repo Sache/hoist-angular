@@ -7,8 +7,6 @@ import { Playlist } from 'src/app/core/models/playlist';
   styleUrls: ['./playlist-view.component.scss']
 })
 export class PlaylistViewComponent implements OnInit {
-
-
   mode: 'details' | 'form' = 'details'
 
   playlists: Playlist[] = [
