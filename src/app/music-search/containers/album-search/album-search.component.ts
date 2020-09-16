@@ -1,4 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Album } from 'src/app/core/models/album';
 import { MusicSearchService } from 'src/app/core/services/music-search.service';
 
@@ -11,13 +12,14 @@ export class AlbumSearchComponent implements OnInit {
   message = ''
   results: Album[] = []
 
-  recipeForPancakes = this.service.searchAlbums('batman')
   
   searchAlbums(query: string) {
-    this.recipeForPancakes = this.service.searchAlbums(query)
-    
-    // Rerun the request by resubscribing
-    this.recipeForPancakes.subscribe({
+    const recipeForPancakes = this.service.searchAlbums(query)
+
+    const sub: Subscription = recipeForPancakes.subscribe()
+    sub.unsubscribe()
+
+    recipeForPancakes.subscribe({
       next: resp => {
         this.results = resp.albums.items
       },
