@@ -12,17 +12,13 @@ export class AlbumSearchComponent implements OnInit {
   message = ''
   results: Album[] = []
 
-  
+
   searchAlbums(query: string) {
     const recipeForPancakes = this.service.searchAlbums(query)
 
-    const sub: Subscription = recipeForPancakes.subscribe()
-    sub.unsubscribe()
 
     recipeForPancakes.subscribe({
-      next: resp => {
-        this.results = resp.albums.items
-      },
+      next: albums => this.results = albums,
       error: error => {
         this.message = error.error.error.message;
       },

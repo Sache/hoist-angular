@@ -3,6 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Album, AlbumsSearchResponse } from '../models/album';
 import { AuthService } from '../security/auth.service';
 import { SEARCH_API_URL } from './tokens';
+import { map, pluck } from 'rxjs/operators'
 
 @Injectable({
   // providedIn: CoreModule
@@ -17,18 +18,19 @@ export class MusicSearchService {
   ) { }
 
   searchAlbums(query = 'batman') {
-
-    const obs = this.http.get<AlbumsSearchResponse>(this.api_url, {
+    return this.http.get<AlbumsSearchResponse>(this.api_url, {
       headers: {
         Authorization: `Bearer ${this.auth.getToken()}`
       },
       params: {
-        type:'album',
+        type: 'album',
         q: query
       },
     })
-
-    return obs;
+      .pipe(
+        map(res => res.albums.items)
+        // pluck('albums','items')
+      )
   }
 }
 
