@@ -1,8 +1,12 @@
 <div class="input-group mb-3">
   
-  <input type="text" class="form-control" placeholder="Search albums">
+  <input class="form-control" placeholder="Search albums" #queryElem (keydown)="$event">
+
+  {{queryElem.value}}
 
   <div class="input-group-append">
-    <button class="btn btn-outline-secondary">Search</button>
+    <button class="btn btn-outline-secondary" (click)="search(queryElem.value)">
+      Search
+    </button>
   </div>
 </div>
