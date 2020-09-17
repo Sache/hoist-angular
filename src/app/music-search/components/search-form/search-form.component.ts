@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit, ElementRef, EventEmitter, Output } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, NgModel, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, NgModel, Validators, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { debounceTime, distinct, distinctUntilChanged, filter } from 'rxjs/operators';
 
 @Component({
@@ -9,16 +9,23 @@ import { debounceTime, distinct, distinctUntilChanged, filter } from 'rxjs/opera
 })
 export class SearchFormComponent implements OnInit {
 
+  censor = (badword = 'batman'): ValidatorFn => //
+
+    (control: AbstractControl): ValidationErrors | null => {
+      const isInvalid = String(control.value).includes(badword)
+
+      return isInvalid ? {
+        'censor': { badword:badword }
+      } : null
+    }
+
   queryForm = this.fb.group({
-    // 'query': ['batman', []]
-    // query: new FormControl('batman',{
-    //   // updateOn:'blur'
-    // })
-    query: new FormControl('',[
+    query: new FormControl('', [
       Validators.required,
       Validators.minLength(3),
+      this.censor('batman')
     ])
-  })
+  }, [/* group validators */])
 
   constructor(private fb: FormBuilder) {
     (window as any).form = this.queryForm
@@ -29,12 +36,12 @@ export class SearchFormComponent implements OnInit {
 
     valueChanges.pipe(
       debounceTime(400),
-      filter(q => q.length >= 3 ),
+      filter(q => q.length >= 3),
       distinctUntilChanged(),
-    )    
-    .subscribe(query => {
-      this.search(query)
-    })
+    )
+      .subscribe(query => {
+        this.search(query)
+      })
 
   }
 
@@ -47,7 +54,7 @@ export class SearchFormComponent implements OnInit {
   }
 
 
-  resetForm(){
+  resetForm() {
     // this.queryForm.setValue({})
     // this.queryForm.patchValue({})
     // this.queryForm.reset({});

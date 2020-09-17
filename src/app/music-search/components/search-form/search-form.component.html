@@ -1,4 +1,4 @@
-<!-- <pre>{{queryForm.value|json}}</pre> -->
+<pre>{{ queryForm.controls.query.errors |json}}</pre>
 
 <form [formGroup]="queryForm">
 
@@ -13,13 +13,6 @@
       </button>
     </div> -->
   </div>
-<!-- 
-  <div *ngFor="let error of queryForm.get('query')?.errors | keyvalue">
-    <div [ngSwitch]="error.key">
-      <div *ngSwitchCase="'required'"> Cannot be empty</div>
-      <div *ngSwitchCase="'minlength'">Minimum {{error.value.requiredLength}}</div>
-    </div>
-  </div> -->
 
   <ng-container *ngIf="queryForm.get('query') as field">
     <ng-container *ngIf="field.touched || field.dirty">
@@ -27,6 +20,10 @@
       
       <p *ngIf="field.getError('minlength') as error">
         Minimum length is {{ error.requiredLength }} letters
+      </p>
+      
+      <p *ngIf="field.getError('censor') as error">
+        Cannot contain "{{ error.badword }}"
       </p>
     </ng-container>
   </ng-container>
