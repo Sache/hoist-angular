@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Album } from 'src/app/core/models/album';
@@ -10,7 +10,7 @@ import { MusicSearchService } from 'src/app/core/services/music-search.service';
   styleUrls: ['./album-search.component.scss'],
   // providers:[MusicSearchService]
 })
-export class AlbumSearchComponent implements OnInit {
+export class AlbumSearchComponent implements OnInit,OnDestroy{
   message = ''
   results: Album[] = []
   
@@ -19,13 +19,19 @@ export class AlbumSearchComponent implements OnInit {
   searchAlbums(query: string) {
     this.service.searchAlbums(query)
   }
+
+  sub!:Subscription 
   
   ngOnInit(): void {
-    this.service.getAlbumsUpdates().pipe(
-      tap(console.log)
-    ).subscribe({
+    this.sub = this.service.getAlbumsUpdates()
+    .pipe(tap(console.log))
+    .subscribe({
       next: albums => this.results = albums,
       error: error => this.message = error.message,
     })
+  }
+
+  ngOnDestroy(){
+    this.sub.unsubscribe()
   }
 }

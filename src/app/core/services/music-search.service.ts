@@ -11,19 +11,16 @@ import { BehaviorSubject, concat, EMPTY, merge, Observable, of, ReplaySubject, S
   providedIn: 'root',
 })
 export class MusicSearchService {
-
-  // prevResults: Album[] = mockAlbums as Album[]
-  // private albumsFound = new EventEmitter<Album[]>()
-  // private albumsFound = new Subject<Album[]>()
-  // private albumsFound = new ReplaySubject<Album[]>(3,10_000)
-  // private albumsFound = new ReplaySubject<Album[]>()
-  // private albumsFound = new AsyncSubject<Album[]>() // emit last value on completed
   private albumsFound = new BehaviorSubject<Album[]>(mockAlbums as Album[])
 
   constructor(
     @Inject(SEARCH_API_URL) public api_url: string,
     private http: HttpClient,
-  ) { }
+  ) { 
+    this.albumsFound.getValue(); // get current value without subscribing
+
+    (window as any).subject = this.albumsFound
+  }
 
   getAlbumsUpdates(): Observable<Album[]> {
     return this.albumsFound;
