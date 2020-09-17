@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit, ElementRef, EventEmitter, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, NgModel } from '@angular/forms';
+import { debounceTime, distinct, distinctUntilChanged, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search-form',
@@ -9,58 +10,36 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, NgMode
 export class SearchFormComponent implements OnInit {
 
 
-  buildForm() {
-    const fb = this.fb
-
-    return fb.group({
-      'query': ['batman', []],
-      'extras': fb.group({
-        'type': ['album'],
-        'markets': fb.array([
-          fb.group({
-            code: ['GB']
-          }),
-          fb.group({
-            code: ['GB']
-          }),
-          fb.group({
-            code: ['GB']
-          })
-        ])
-      })
-    })
-  }
-  queryForm = this.buildForm()
-
-
-  markets = this.queryForm.get('extras.markets') as FormArray
-
-  addMarket() {
-    this.markets.push(new FormGroup({
-      code: new FormControl('')
-    }))
-  }
-  removeMarket(market: AbstractControl) {
-    const index = this.markets.controls.indexOf(market)
-    if (index !== -1) {
-      this.markets.removeAt(index)
-    }
-  }
+  queryForm = this.fb.group({
+    'query': ['batman', []]
+  })
 
   constructor(private fb: FormBuilder) {
     (window as any).form = this.queryForm
-
-    this.queryForm.valueChanges.subscribe(console.log)
   }
 
   ngOnInit(): void {
+    const valueChanges = this.queryForm.get('query')?.valueChanges!;
+
+    valueChanges.pipe(
+      // longer than 3
+      filter(q => q.length >= 3 ),
+      // no duplicates
+      distinctUntilChanged(),
+      // not too many at once
+      debounceTime(400)
+    )    
+    .subscribe(query => {
+      this.search(query)
+    })
+
   }
 
   @Output() searchChange = new EventEmitter<string>();
 
-  search() {
+  search(query: string) {
     // this.queryModel
-    // console.log(query)
+    console.log(query)
     // this.searchChange.emit(this.query)
   }
 
