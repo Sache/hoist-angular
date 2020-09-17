@@ -1,10 +1,10 @@
 <!-- <pre>{{queryForm.value|json}}</pre> -->
 
-<div [formGroup]="queryForm">
+<form [formGroup]="queryForm">
 
   <div class="input-group mb-3">
 
-    <input class="form-control" placeholder="Search albums" formControlName="query"
+    <input class="form-control" placeholder="Search albums" formControlName="query" required
       (keyup.alt.control.enter)="search(queryForm.get('query')!.value) ">
 
     <!-- <div class="input-group-append">
@@ -14,4 +14,13 @@
     </div> -->
   </div>
 
-</div>
+  <p *ngIf="queryForm.get('query')?.hasError('required')">
+    Cannot be empty
+  </p>
+
+  <p *ngIf="queryForm.get('query')?.hasError('minlength')">
+    Query is too short. Has to be at least
+    {{queryForm.get('query')?.getError('minlength').requiredLength }} letters
+  </p>
+
+</form>

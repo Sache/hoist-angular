@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit, ElementRef, EventEmitter, Output } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, NgModel } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, NgModel, Validators } from '@angular/forms';
 import { debounceTime, distinct, distinctUntilChanged, filter } from 'rxjs/operators';
 
 @Component({
@@ -10,7 +10,14 @@ import { debounceTime, distinct, distinctUntilChanged, filter } from 'rxjs/opera
 export class SearchFormComponent implements OnInit {
 
   queryForm = this.fb.group({
-    'query': ['batman', []]
+    // 'query': ['batman', []]
+    // query: new FormControl('batman',{
+    //   // updateOn:'blur'
+    // })
+    query: new FormControl('batman',[
+      Validators.required,
+      Validators.minLength(3),
+    ])
   })
 
   constructor(private fb: FormBuilder) {
