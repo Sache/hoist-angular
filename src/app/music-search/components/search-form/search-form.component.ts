@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit, ElementRef, EventEmitter, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, NgModel, Validators, ValidatorFn, Validator, ValidationErrors, AsyncValidatorFn } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { debounceTime, distinct, distinctUntilChanged, filter } from 'rxjs/operators';
+import { combineLatest, from, Observable } from 'rxjs';
+import { debounceTime, distinct, distinctUntilChanged, filter, map, withLatestFrom } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search-form',
@@ -26,13 +26,13 @@ export class SearchFormComponent implements OnInit {
 
       return new Observable((observer) => {
         // Called on Subscribe
-        console.log('Form subscribed with ' + control.value)
+        // console.log('Form subscribed with ' + control.value)
 
         const isInvalid = String(control.value).includes(badword)
 
         const handler = setTimeout(() => {
-          console.log('Validation is ' + !isInvalid)
-          
+          // console.log('Validation is ' + !isInvalid)
+
           observer.next(isInvalid ? {
             'censor': { badword: badword }
           } : null)
@@ -40,9 +40,10 @@ export class SearchFormComponent implements OnInit {
         }, 2000)
 
         // Teardown logic - called on UnSubscribe
-        return () => { 
-          console.log('Validation Canceled')
-          clearTimeout(handler) }
+        return () => {
+          // console.log('Validation Canceled')
+          clearTimeout(handler)
+        }
       })
       // .subscribe({ next:()=>{ /* ... */}})
     }
@@ -63,15 +64,34 @@ export class SearchFormComponent implements OnInit {
 
   ngOnInit(): void {
     const valueChanges = this.queryForm.get('query')?.valueChanges!;
+    const statusChanges = this.queryForm.get('query')?.statusChanges!;
+    const validStatus = statusChanges.pipe(filter(s => s === 'VALID'))
 
-    valueChanges.pipe(
-      debounceTime(400),
-      filter(q => q.length >= 3),
-      distinctUntilChanged(),
+    // statusChanges.pipe(
+    // combineLatest(valueChanges),
+
+    combineLatest([statusChanges, valueChanges]).pipe(
+      filter(result => result[0] == "VALID"),
+      map(result => result[1])
     )
       .subscribe(query => {
         this.search(query)
       })
+    // .subscribe(result => { console.log(result) })
+
+    // validStatus.pipe(
+    //   withLatestFrom(valueChanges),
+    //   map(result => result[1])
+    // ).subscribe(result => {console.log(result)})
+
+    // valueChanges.pipe(
+    //   debounceTime(400),
+    //   filter(q => q.length >= 3),
+    //   distinctUntilChanged(),
+    // )
+    //   .subscribe(query => {
+    //     this.search(query)
+    //   })
 
   }
 
