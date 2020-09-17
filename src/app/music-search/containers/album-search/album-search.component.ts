@@ -6,7 +6,8 @@ import { MusicSearchService } from 'src/app/core/services/music-search.service';
 @Component({
   selector: 'app-album-search',
   templateUrl: './album-search.component.html',
-  styleUrls: ['./album-search.component.scss']
+  styleUrls: ['./album-search.component.scss'],
+  // providers:[MusicSearchService]
 })
 export class AlbumSearchComponent implements OnInit {
   message = ''

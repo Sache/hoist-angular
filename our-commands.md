@@ -109,3 +109,7 @@ ng g c music-search/components/album-card
 ng g c music-search/components/search-form
 ng g c music-search/components/search-results
 
+# Interceptors
+
+$ ng g interceptor core/security/auth
+CREATE src/app/core/security/auth.interceptor.ts (409 bytes)

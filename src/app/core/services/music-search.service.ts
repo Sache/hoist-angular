@@ -15,14 +15,10 @@ export class MusicSearchService {
   constructor(
     @Inject(SEARCH_API_URL) public api_url: string,
     private http: HttpClient,
-    private auth: AuthService
   ) { }
 
   searchAlbums(query = 'batman') {
     return this.http.get<AlbumsSearchResponse>(this.api_url, {
-      headers: {
-        Authorization: `Bearer ${this.auth.getToken()}`
-      },
       params: {
         type: 'album',
         q: query
@@ -30,26 +26,12 @@ export class MusicSearchService {
     })
       .pipe(
         map(res => res.albums.items),
-        // pluck('albums','items')
-        catchError((error) => {
-
-          if (error instanceof HttpErrorResponse) {
-            return throwError(new Error(error.error.error.message))
-          }
-          // return throwError(error)
-          return throwError(new Error('Unexpected Error'))
-
-          // return EMPTY
-          // return [ ]
-          // return [ [] ]
-          // return of( mockAlbums as Album[] )
-        })
       )
 
   }
 }
 
-
+// console.log(MusicSearchService)
 
 export const mockAlbums: Partial<Pick<Album, 'id' | 'name' | 'images'>>[] = [
   {
