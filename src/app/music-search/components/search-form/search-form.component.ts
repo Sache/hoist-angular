@@ -9,7 +9,6 @@ import { debounceTime, distinct, distinctUntilChanged, filter } from 'rxjs/opera
 })
 export class SearchFormComponent implements OnInit {
 
-
   queryForm = this.fb.group({
     'query': ['batman', []]
   })
@@ -22,11 +21,8 @@ export class SearchFormComponent implements OnInit {
     const valueChanges = this.queryForm.get('query')?.valueChanges!;
 
     valueChanges.pipe(
-      // not too many at once
       debounceTime(400),
-      // longer than 3
       filter(q => q.length >= 3 ),
-      // no duplicates
       distinctUntilChanged(),
     )    
     .subscribe(query => {
@@ -39,8 +35,8 @@ export class SearchFormComponent implements OnInit {
 
   search(query: string) {
     // this.queryModel
-    console.log(query)
-    // this.searchChange.emit(this.query)
+    // console.log(query)
+    this.searchChange.emit(query)
   }
 
 }

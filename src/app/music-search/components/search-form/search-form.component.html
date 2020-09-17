@@ -1,10 +1,11 @@
-<pre>{{queryForm.value|json}}</pre>
+<!-- <pre>{{queryForm.value|json}}</pre> -->
 
 <div [formGroup]="queryForm">
 
   <div class="input-group mb-3">
 
-    <input class="form-control" placeholder="Search albums" formControlName="query">
+    <input class="form-control" placeholder="Search albums" formControlName="query"
+      (keyup.alt.control.enter)="search(queryForm.get('query')!.value) ">
 
     <!-- <div class="input-group-append">
       <button class="btn btn-outline-secondary" (click)="search()">
@@ -12,5 +13,5 @@
       </button>
     </div> -->
   </div>
-  
+
 </div>
