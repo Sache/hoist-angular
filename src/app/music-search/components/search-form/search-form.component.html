@@ -1,12 +1,39 @@
-<div class="input-group mb-3">
+<pre>{{queryForm.value|json}}</pre>
 
-  <input class="form-control" placeholder="Search albums" 
-    [formControl]="queryForm.get('query')">
+<div [formGroup]="queryForm">
 
+  <div class="input-group mb-3">
 
-  <div class="input-group-append">
-    <button class="btn btn-outline-secondary" (click)="search()">
-      Search
-    </button>
+    <input class="form-control" placeholder="Search albums" formControlName="query">
+
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" (click)="search()">
+        Search
+      </button>
+    </div>
   </div>
+
+  <!-- <select [formControl]="queryForm.get('extras.type')"> -->
+
+  <div formGroupName="extras">
+    <select class="form-control" formControlName="type">
+      <option value="album">Album</option>
+      <option value="artist">Artist</option>
+    </select>
+  </div>
+
+  <ul formGroupName="extras">
+    <ng-container formArrayName="markets">
+      <li [formGroupName]="0">
+        <input type="text" class="form-control" formControlName="code">
+      </li>
+      <li [formGroupName]="1">
+        <input type="text" class="form-control" formControlName="code">
+      </li>
+      <li [formGroupName]="2">
+        <input type="text" class="form-control" formControlName="code">
+      </li>
+    </ng-container>
+  </ul>
+
 </div>

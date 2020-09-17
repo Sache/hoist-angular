@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit, ElementRef, EventEmitter, Output } from '@angular/core';
-import { FormControl, FormGroup, NgModel } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-search-form',
@@ -9,11 +9,27 @@ import { FormControl, FormGroup, NgModel } from '@angular/forms';
 export class SearchFormComponent implements OnInit {
 
   queryForm = new FormGroup({
-    query: new FormControl('batman',[]),
-    type: new FormControl('album')
+    'query': new FormControl('batman', []),
+    'extras': new FormGroup({
+      'type': new FormControl('album'),
+      'markets': new FormArray([
+        new FormGroup({
+          code: new FormControl('GB')
+        }),
+        new FormGroup({
+          code: new FormControl('PL')
+        }),
+        new FormGroup({
+          code: new FormControl('FR')
+        }),
+      ])
+    })
+
   })
 
-  constructor() { }
+  constructor() {
+    (window as any).form = this.queryForm
+  }
 
   ngOnInit(): void {
   }
