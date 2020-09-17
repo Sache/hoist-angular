@@ -5,7 +5,7 @@ import { SEARCH_API_URL } from "./services/tokens";
 // import { MusicSearchService } from './services/music-search.service';
 import {
   HttpClientModule,
-  HttpClient, HTTP_INTERCEPTORS
+  HttpClient, HTTP_INTERCEPTORS, HttpClientXsrfModule
 } from '@angular/common/http';
 import { SecurityModule } from './security/security.module'
 import { AuthConfig } from './security/auth.service';
@@ -16,8 +16,12 @@ import { AuthInterceptor } from './security/auth.interceptor';
   imports: [
     CommonModule,
     HttpClientModule,
-    SecurityModule
+    SecurityModule,
     // SuperHiperWidgetModule
+    // HttpClientXsrfModule.withOptions({
+    //   cookieName: '', headerName: ''
+    // }),
+    HttpClientXsrfModule.disable()
   ],
   providers: [
     {
@@ -69,9 +73,9 @@ import { AuthInterceptor } from './security/auth.interceptor';
     // MusicSearchService,
   ]
 })
-export class CoreModule { 
+export class CoreModule {
 
-  constructor(@Inject(HTTP_INTERCEPTORS) private interceptor:any[]){
-      console.log(interceptor)
+  constructor(@Inject(HTTP_INTERCEPTORS) private interceptor: any[]) {
+    console.log(interceptor)
   }
 }
