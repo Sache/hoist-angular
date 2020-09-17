@@ -13,20 +13,22 @@
       </button>
     </div> -->
   </div>
-
+<!-- 
   <div *ngFor="let error of queryForm.get('query')?.errors | keyvalue">
     <div [ngSwitch]="error.key">
       <div *ngSwitchCase="'required'"> Cannot be empty</div>
       <div *ngSwitchCase="'minlength'">Minimum {{error.value.requiredLength}}</div>
     </div>
-  </div>
+  </div> -->
 
   <ng-container *ngIf="queryForm.get('query') as field">
+    <ng-container *ngIf="field.touched || field.dirty">
       <p *ngIf="field.hasError('required')">Cannot be empty</p>
-    
+      
       <p *ngIf="field.getError('minlength') as error">
         Minimum length is {{ error.requiredLength }} letters
       </p>
+    </ng-container>
   </ng-container>
 
 </form>

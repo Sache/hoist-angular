@@ -14,7 +14,7 @@ export class SearchFormComponent implements OnInit {
     // query: new FormControl('batman',{
     //   // updateOn:'blur'
     // })
-    query: new FormControl('batman',[
+    query: new FormControl('',[
       Validators.required,
       Validators.minLength(3),
     ])
@@ -44,6 +44,14 @@ export class SearchFormComponent implements OnInit {
     // this.queryModel
     // console.log(query)
     this.searchChange.emit(query)
+  }
+
+
+  resetForm(){
+    // this.queryForm.setValue({})
+    // this.queryForm.patchValue({})
+    // this.queryForm.reset({});
+    // ng.applyChanges(ng.getContext($0))
   }
 
 }

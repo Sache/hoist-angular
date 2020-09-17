@@ -2,6 +2,9 @@
   display: block;
 }
 
-form .ng-invalid{
+form.was-submitted .ng-invalid,
+form .ng-touched.ng-invalid,
+form .ng-dirty.ng-invalid{
   border: 2px solid red;
 }
+
