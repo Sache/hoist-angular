@@ -5,13 +5,13 @@
   <div class="input-group mb-3">
 
     <input class="form-control" placeholder="Search albums" formControlName="query"
-      (keyup.alt.control.enter)="search(queryForm.get('query')!.value) ">
+      (keyup.enter)="buttonSearch() ">
 
-    <!-- <div class="input-group-append">
-      <button class="btn btn-outline-secondary" (click)="search()">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" (click)="buttonSearch()">
         Search
       </button>
-    </div> -->
+    </div>
   </div>
 
   <p *ngIf="queryForm.pending">Please wait.. checking...</p>

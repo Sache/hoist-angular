@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit, ElementRef, EventEmitter, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, NgModel, Validators, ValidatorFn, Validator, ValidationErrors, AsyncValidatorFn } from '@angular/forms';
-import { combineLatest, from, Observable, OperatorFunction, pipe } from 'rxjs';
+import { combineLatest, from, Observable, OperatorFunction, pipe, Subject } from 'rxjs';
 import { debounceTime, distinct, distinctUntilChanged, filter, map, withLatestFrom } from 'rxjs/operators';
 
 @Component({
@@ -65,39 +65,15 @@ export class SearchFormComponent implements OnInit {
   ngOnInit(): void {
     const valueChanges = this.queryForm.get('query')?.valueChanges!;
     const statusChanges = this.queryForm.get('query')?.statusChanges!;
-    const validStatus = statusChanges.pipe(filter(s => s === 'VALID'))
 
-      // statusChanges.pipe(
-      // combineLatest(valueChanges),
-      ;
+    // Multicast Subject - One to Many.
+    this.buttonClicked.subscribe(console.log)
+    this.buttonClicked.subscribe(console.log)
+    this.buttonClicked.subscribe(console.log).unsubscribe()
 
-    const map = <T, R>(project: (value: T, index: number) => R, thisArg?: any) => {
-      return (source: Observable<T>) => new Observable<R>((subscriber) => {
-        let index = 0
-        source.subscribe({
-          next(value) {
-            let result: R
-            try {
-              result = project(value, index++)
-            } catch (err) {
-              subscriber.error(err)
-              return
-            }
-            subscriber.next(result)
-          }
-        })
-      })
-    }
-
-    const filterValid = () => pipe(
-      filter<[string, string]>(([status]) => status == "VALID"),
-      map<[string, string], string>(([, value]) => value)
-    );
-
-    combineLatest([statusChanges, valueChanges]).pipe(
-      filterValid()
-      // filter(([status]) => status == "VALID"),
-      // map(([, value]) => value)
+    combineLatest([statusChanges, valueChanges, this.buttonClicked]).pipe(
+      filter(([status]) => status == "VALID"),
+      map(([, value]) => value)
     )
       .subscribe(query => {
         this.search(query)
@@ -107,10 +83,16 @@ export class SearchFormComponent implements OnInit {
 
   @Output() searchChange = new EventEmitter<string>();
 
+  buttonClicked = new Subject()
+
   search(query: string) {
     // this.queryModel
     // console.log(query)
     this.searchChange.emit(query)
+  }
+
+  buttonSearch() {
+    this.buttonClicked.next()
   }
 
 
