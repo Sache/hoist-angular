@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AlbumSearchComponent } from './containers/album-search/album-search.component';
+import { SyncSearchComponent } from './containers/sync-search/sync-search.component';
 
 const routes: Routes = [
   {
     path:'search',
     component: AlbumSearchComponent
+  },
+  {
+    path:'sync',
+    component: SyncSearchComponent
   }
 ];
 

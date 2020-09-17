@@ -16,13 +16,13 @@ export class AlbumSearchComponent implements OnInit {
   constructor(private service: MusicSearchService) { }
 
   searchAlbums(query: string) {
-    this.service.searchAlbums(query).subscribe({
+    this.service.searchAlbums(query)
+  }
+  
+  ngOnInit(): void {
+    this.service.getAlbumsUpdates().subscribe({
       next: albums => this.results = albums,
       error: error => this.message = error.message,
     })
-  }
-
-  ngOnInit(): void {
-    this.searchAlbums('batman')
   }
 }

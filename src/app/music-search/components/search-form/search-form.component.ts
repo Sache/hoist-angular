@@ -66,12 +66,7 @@ export class SearchFormComponent implements OnInit {
     const valueChanges = this.queryForm.get('query')?.valueChanges!;
     const statusChanges = this.queryForm.get('query')?.statusChanges!;
 
-    // Multicast Subject - One to Many.
-    this.buttonClicked.subscribe(console.log)
-    this.buttonClicked.subscribe(console.log)
-    this.buttonClicked.subscribe(console.log).unsubscribe()
-
-    combineLatest([statusChanges, valueChanges, this.buttonClicked]).pipe(
+    combineLatest([statusChanges, valueChanges]).pipe(
       filter(([status]) => status == "VALID"),
       map(([, value]) => value)
     )
