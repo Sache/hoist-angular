@@ -22,12 +22,12 @@ export class SearchFormComponent implements OnInit {
     const valueChanges = this.queryForm.get('query')?.valueChanges!;
 
     valueChanges.pipe(
+      // not too many at once
+      debounceTime(400),
       // longer than 3
       filter(q => q.length >= 3 ),
       // no duplicates
       distinctUntilChanged(),
-      // not too many at once
-      debounceTime(400)
     )    
     .subscribe(query => {
       this.search(query)
