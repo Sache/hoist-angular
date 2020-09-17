@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit, ElementRef, EventEmitter, Output } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, NgModel, Validators, ValidatorFn, ValidationErrors } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, NgModel, Validators, ValidatorFn, Validator, ValidationErrors, AsyncValidatorFn } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { debounceTime, distinct, distinctUntilChanged, filter } from 'rxjs/operators';
 
 @Component({
@@ -15,15 +16,44 @@ export class SearchFormComponent implements OnInit {
       const isInvalid = String(control.value).includes(badword)
 
       return isInvalid ? {
-        'censor': { badword:badword }
+        'censor': { badword: badword }
       } : null
+    }
+
+  asyncCensor = (badword = 'batman'): AsyncValidatorFn => //
+    (control: AbstractControl) => {
+      // return this.http.post('/validate', control.value).pipe(/*  */)
+
+      return new Observable((observer) => {
+        // Called on Subscribe
+        console.log('Form subscribed with ' + control.value)
+
+        const isInvalid = String(control.value).includes(badword)
+
+        const handler = setTimeout(() => {
+          console.log('Validation is ' + !isInvalid)
+          
+          observer.next(isInvalid ? {
+            'censor': { badword: badword }
+          } : null)
+          observer.complete()
+        }, 2000)
+
+        // Teardown logic - called on UnSubscribe
+        return () => { 
+          console.log('Validation Canceled')
+          clearTimeout(handler) }
+      })
+      // .subscribe({ next:()=>{ /* ... */}})
     }
 
   queryForm = this.fb.group({
     query: new FormControl('', [
       Validators.required,
       Validators.minLength(3),
-      this.censor('batman')
+      // this.censor('batman')
+    ], [
+      this.asyncCensor('batman')
     ])
   }, [/* group validators */])
 

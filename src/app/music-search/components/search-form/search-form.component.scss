@@ -8,3 +8,6 @@ form .ng-dirty.ng-invalid{
   border: 2px solid red;
 }
 
+form .ng-pending{
+  border: 2px solid blue;
+}

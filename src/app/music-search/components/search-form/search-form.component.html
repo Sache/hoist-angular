@@ -1,4 +1,4 @@
-<pre>{{ queryForm.controls.query.errors |json}}</pre>
+<!-- <pre>{{ queryForm.controls.query.errors |json}}</pre> -->
 
 <form [formGroup]="queryForm">
 
@@ -13,6 +13,8 @@
       </button>
     </div> -->
   </div>
+
+  <p *ngIf="queryForm.pending">Please wait.. checking...</p>
 
   <ng-container *ngIf="queryForm.get('query') as field">
     <ng-container *ngIf="field.touched || field.dirty">
