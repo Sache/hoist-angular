@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit, ElementRef, EventEmitter, Output } from '@angular/core';
-import { FormArray, FormControl, FormGroup, NgModel } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup, NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-search-form',
@@ -24,8 +24,21 @@ export class SearchFormComponent implements OnInit {
         }),
       ])
     })
-
   })
+
+  markets = this.queryForm.get('extras.markets') as FormArray
+
+  addMarket() {
+    this.markets.push(new FormGroup({
+      code: new FormControl('')
+    }))
+  }
+  removeMarket(market:AbstractControl){
+   const index = this.markets.controls.indexOf(market)
+   if(index !== -1){
+     this.markets.removeAt(index)
+   }
+  }
 
   constructor() {
     (window as any).form = this.queryForm

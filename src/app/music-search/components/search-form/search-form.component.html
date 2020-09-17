@@ -24,16 +24,16 @@
 
   <ul formGroupName="extras">
     <ng-container formArrayName="markets">
-      <li [formGroupName]="0">
+
+      <li [formGroup]="market" class="input-group"
+      
+      *ngFor="let market of markets.controls">
         <input type="text" class="form-control" formControlName="code">
+        <span class="close" (click)="removeMarket(market)">&times;</span>
       </li>
-      <li [formGroupName]="1">
-        <input type="text" class="form-control" formControlName="code">
-      </li>
-      <li [formGroupName]="2">
-        <input type="text" class="form-control" formControlName="code">
-      </li>
+
     </ng-container>
   </ul>
+  <button class="btn btn-primary" (click)="addMarket()">Add Market</button>
 
 </div>
