@@ -4,6 +4,7 @@
     <app-album-search></app-album-search>
   </div>
   <div class="col">
-    <app-album-search></app-album-search>
+    <button (click)="hide = !hide">Toggle</button>
+    <app-album-search *ngIf="hide"></app-album-search>
   </div>
 </div>

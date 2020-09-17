@@ -4,7 +4,7 @@ import { Album, AlbumsSearchResponse } from '../models/album';
 import { AuthService } from '../security/auth.service';
 import { SEARCH_API_URL } from './tokens';
 import { catchError, map, pluck, startWith, tap } from 'rxjs/operators'
-import { concat, EMPTY, merge, Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, concat, EMPTY, merge, Observable, of, ReplaySubject, Subject, throwError } from 'rxjs';
 
 @Injectable({
   // providedIn: CoreModule
@@ -12,8 +12,13 @@ import { concat, EMPTY, merge, Observable, of, throwError } from 'rxjs';
 })
 export class MusicSearchService {
 
-  prevResults: Album[] = mockAlbums as Album[]
-  private albumsFound = new EventEmitter<Album[]>()
+  // prevResults: Album[] = mockAlbums as Album[]
+  // private albumsFound = new EventEmitter<Album[]>()
+  // private albumsFound = new Subject<Album[]>()
+  // private albumsFound = new ReplaySubject<Album[]>(3,10_000)
+  // private albumsFound = new ReplaySubject<Album[]>()
+  // private albumsFound = new AsyncSubject<Album[]>() // emit last value on completed
+  private albumsFound = new BehaviorSubject<Album[]>(mockAlbums as Album[])
 
   constructor(
     @Inject(SEARCH_API_URL) public api_url: string,
@@ -21,11 +26,7 @@ export class MusicSearchService {
   ) { }
 
   getAlbumsUpdates(): Observable<Album[]> {
-    // return merge(
-    //   of(mockAlbums as Album[]),
-    //   this.albumsFound.asObservable(),
-    // )
-    return this.albumsFound.pipe(startWith(this.prevResults))
+    return this.albumsFound;
   }
 
   searchAlbums(query: string) {
@@ -38,8 +39,7 @@ export class MusicSearchService {
       map(res => res.albums.items)
     ).subscribe({
       next: albums => {
-        this.prevResults = albums
-        this.albumsFound.emit(albums)
+        this.albumsFound.next(albums)
       }
     })
   }

@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { Album } from 'src/app/core/models/album';
 import { MusicSearchService } from 'src/app/core/services/music-search.service';
 
@@ -20,7 +21,9 @@ export class AlbumSearchComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.service.getAlbumsUpdates().subscribe({
+    this.service.getAlbumsUpdates().pipe(
+      tap(console.log)
+    ).subscribe({
       next: albums => this.results = albums,
       error: error => this.message = error.message,
     })
