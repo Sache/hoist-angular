@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit, ElementRef, EventEmitter, Output } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup, NgModel } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-search-form',
@@ -8,23 +8,30 @@ import { AbstractControl, FormArray, FormControl, FormGroup, NgModel } from '@an
 })
 export class SearchFormComponent implements OnInit {
 
-  queryForm = new FormGroup({
-    'query': new FormControl('batman', []),
-    'extras': new FormGroup({
-      'type': new FormControl('album'),
-      'markets': new FormArray([
-        new FormGroup({
-          code: new FormControl('GB')
-        }),
-        new FormGroup({
-          code: new FormControl('PL')
-        }),
-        new FormGroup({
-          code: new FormControl('FR')
-        }),
-      ])
+
+  buildForm() {
+    const fb = this.fb
+
+    return fb.group({
+      'query': ['batman', []],
+      'extras': fb.group({
+        'type': ['album'],
+        'markets': fb.array([
+          fb.group({
+            code: ['GB']
+          }),
+          fb.group({
+            code: ['GB']
+          }),
+          fb.group({
+            code: ['GB']
+          })
+        ])
+      })
     })
-  })
+  }
+  queryForm = this.buildForm()
+
 
   markets = this.queryForm.get('extras.markets') as FormArray
 
@@ -33,14 +40,14 @@ export class SearchFormComponent implements OnInit {
       code: new FormControl('')
     }))
   }
-  removeMarket(market:AbstractControl){
-   const index = this.markets.controls.indexOf(market)
-   if(index !== -1){
-     this.markets.removeAt(index)
-   }
+  removeMarket(market: AbstractControl) {
+    const index = this.markets.controls.indexOf(market)
+    if (index !== -1) {
+      this.markets.removeAt(index)
+    }
   }
 
-  constructor() {
+  constructor(private fb: FormBuilder) {
     (window as any).form = this.queryForm
   }
 
