@@ -7,14 +7,21 @@ import { AlbumCardComponent } from './components/album-card/album-card.component
 import { SearchFormComponent } from './components/search-form/search-form.component';
 import { SearchResultsComponent } from './components/search-results/search-results.component';
 import { SharedModule } from '../shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [AlbumSearchComponent, AlbumCardComponent, SearchFormComponent, SearchResultsComponent],
+  declarations:    [
+      AlbumSearchComponent,
+      AlbumCardComponent,
+      SearchFormComponent,
+      SearchResultsComponent
+    ],
   imports: [
     CommonModule,
     MusicSearchRoutingModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class MusicSearchModule { }

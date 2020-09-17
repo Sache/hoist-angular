@@ -75,7 +75,7 @@ import { AuthInterceptor } from './security/auth.interceptor';
 })
 export class CoreModule {
 
-  constructor(@Inject(HTTP_INTERCEPTORS) private interceptor: any[]) {
-    console.log(interceptor)
-  }
+  // constructor(@Inject(HTTP_INTERCEPTORS) private interceptor: any[]) {
+  //   console.log(interceptor)
+  // }
 }

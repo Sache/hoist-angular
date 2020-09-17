@@ -23,11 +23,9 @@ export class MusicSearchService {
         type: 'album',
         q: query
       },
-    })
-      .pipe(
+    }).pipe(
         map(res => res.albums.items),
       )
-
   }
 }
 
