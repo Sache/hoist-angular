@@ -49,6 +49,8 @@ export class SearchFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder) {
     (window as any).form = this.queryForm
+
+    this.queryForm.valueChanges.subscribe(console.log)
   }
 
   ngOnInit(): void {
