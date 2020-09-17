@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit, ElementRef, EventEmitter, Output } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, NgModel, Validators, ValidatorFn, Validator, ValidationErrors, AsyncValidatorFn } from '@angular/forms';
-import { combineLatest, from, Observable } from 'rxjs';
+import { combineLatest, from, Observable, OperatorFunction, pipe } from 'rxjs';
 import { debounceTime, distinct, distinctUntilChanged, filter, map, withLatestFrom } from 'rxjs/operators';
 
 @Component({
@@ -67,32 +67,41 @@ export class SearchFormComponent implements OnInit {
     const statusChanges = this.queryForm.get('query')?.statusChanges!;
     const validStatus = statusChanges.pipe(filter(s => s === 'VALID'))
 
-    // statusChanges.pipe(
-    // combineLatest(valueChanges),
+      // statusChanges.pipe(
+      // combineLatest(valueChanges),
+      ;
+
+    const map = <T, R>(project: (value: T, index: number) => R, thisArg?: any) => {
+      return (source: Observable<T>) => new Observable<R>((subscriber) => {
+        let index = 0
+        source.subscribe({
+          next(value) {
+            let result: R
+            try {
+              result = project(value, index++)
+            } catch (err) {
+              subscriber.error(err)
+              return
+            }
+            subscriber.next(result)
+          }
+        })
+      })
+    }
+
+    const filterValid = () => pipe(
+      filter<[string, string]>(([status]) => status == "VALID"),
+      map<[string, string], string>(([, value]) => value)
+    );
 
     combineLatest([statusChanges, valueChanges]).pipe(
-      filter(([status]) => status == "VALID"),
-      map(([, value]) => value)
+      filterValid()
+      // filter(([status]) => status == "VALID"),
+      // map(([, value]) => value)
     )
-    .subscribe(query => {
-      this.search(query)
-    })
-
-    // .subscribe(result => { console.log(result) })
-
-    // validStatus.pipe(
-    //   withLatestFrom(valueChanges),
-    //   map(([, value]) => value)
-    // ).subscribe(result => { console.log(result) })
-
-    // valueChanges.pipe(
-    //   debounceTime(400),
-    //   filter(q => q.length >= 3),
-    //   distinctUntilChanged(),
-    // )
-    //   .subscribe(query => {
-    //     this.search(query)
-    //   })
+      .subscribe(query => {
+        this.search(query)
+      })
 
   }
 
