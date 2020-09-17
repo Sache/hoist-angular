@@ -4,7 +4,7 @@
 
   <div class="input-group mb-3">
 
-    <input class="form-control" placeholder="Search albums" formControlName="query" required
+    <input class="form-control" placeholder="Search albums" formControlName="query"
       (keyup.alt.control.enter)="search(queryForm.get('query')!.value) ">
 
     <!-- <div class="input-group-append">
@@ -14,13 +14,19 @@
     </div> -->
   </div>
 
-  <p *ngIf="queryForm.get('query')?.hasError('required')">
-    Cannot be empty
-  </p>
+  <div *ngFor="let error of queryForm.get('query')?.errors | keyvalue">
+    <div [ngSwitch]="error.key">
+      <div *ngSwitchCase="'required'"> Cannot be empty</div>
+      <div *ngSwitchCase="'minlength'">Minimum {{error.value.requiredLength}}</div>
+    </div>
+  </div>
 
-  <p *ngIf="queryForm.get('query')?.hasError('minlength')">
-    Query is too short. Has to be at least
-    {{queryForm.get('query')?.getError('minlength').requiredLength }} letters
-  </p>
+  <ng-container *ngIf="queryForm.get('query') as field">
+      <p *ngIf="field.hasError('required')">Cannot be empty</p>
+    
+      <p *ngIf="field.getError('minlength') as error">
+        Minimum length is {{ error.requiredLength }} letters
+      </p>
+  </ng-container>
 
 </form>
