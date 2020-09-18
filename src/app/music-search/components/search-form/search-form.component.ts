@@ -87,7 +87,8 @@ export class SearchFormComponent implements OnInit {
     combineLatest([statusChanges, valueChanges]).pipe(
       filter(([status]) => status == "VALID"),
       map(([, value]) => value),
-      distinctUntilChanged()
+      distinctUntilChanged(),
+      debounceTime(400)
     )
       .subscribe(query => {
         this.search(query)

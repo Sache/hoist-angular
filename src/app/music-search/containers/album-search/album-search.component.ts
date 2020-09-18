@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { takeUntil, takeWhile, tap } from 'rxjs/operators';
 import { Album } from 'src/app/core/models/album';
 import { MusicSearchService } from 'src/app/core/services/music-search.service';
@@ -10,38 +10,21 @@ import { MusicSearchService } from 'src/app/core/services/music-search.service';
   styleUrls: ['./album-search.component.scss'],
   // providers:[MusicSearchService]
 })
-export class AlbumSearchComponent implements OnInit, OnDestroy {
+export class AlbumSearchComponent implements OnInit {
   message = ''
-  results: Album[] = []
-  query = '';
+  results?: Observable<Album[]>
+  
+  query =  this.service.query
 
   constructor(private service: MusicSearchService) { }
 
   searchAlbums(query: string) {
-    this.service.searchAlbums(query)
+    // this.service.searchAlbums(query)
+    this.results = this.service.sendSearchRequest(query)
   }
 
   ngOnInit(): void {
-
-    this.service.getAlbumsUpdates()
-      .pipe(takeUntil(this.destroySignal))
-      .subscribe({
-        next: albums => this.results = albums,
-        error: error => this.message = error.message,
-      })
-
-    this.service.query
-      .pipe(takeUntil(this.destroySignal))
-      .subscribe({
-        next: query => {
-          this.query = query
-        }
-      })
+ 
   }
 
-  destroySignal = new Subject()
-
-  ngOnDestroy() {
-    this.destroySignal.next()
-  }
 }

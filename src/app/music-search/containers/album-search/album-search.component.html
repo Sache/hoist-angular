@@ -3,14 +3,19 @@
 <div class="row">
   <div class="col">
     <app-search-form
-      [query]="query"
+      [query]="query | async"
      (searchChange)="searchAlbums($event)">
     </app-search-form>
   </div>
 </div>
+
 <div class="row">
   <div class="col">
     {{message}}
-    <app-search-results [results]="results"></app-search-results>
+
+    <button (click)="hide=!hide">toggle</button>
+
+    <app-search-results 
+    *ngIf="hide" [results]="results | async"></app-search-results>
   </div>
 </div>

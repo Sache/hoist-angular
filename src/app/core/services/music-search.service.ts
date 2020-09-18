@@ -12,14 +12,14 @@ import { BehaviorSubject, concat, EMPTY, merge, Observable, of, ReplaySubject, S
 })
 export class MusicSearchService {
   private albumsFound = new BehaviorSubject<Album[]>(mockAlbums as Album[])
-  
+
   private queryChange = new BehaviorSubject<string>('batman')
   public query = this.queryChange.asObservable()
 
   constructor(
     @Inject(SEARCH_API_URL) public api_url: string,
     private http: HttpClient,
-  ) { 
+  ) {
     this.albumsFound.getValue(); // get current value without subscribing
 
     (window as any).subject = this.albumsFound
@@ -31,21 +31,25 @@ export class MusicSearchService {
 
   searchAlbums(query: string) {
     this.queryChange.next(query)
-    
-    this.http.get<AlbumsSearchResponse>(this.api_url, {
-      params: {
-        type: 'album',
-        q: query
-      },
-    }).pipe(
-      map(res => res.albums.items)
-    ).subscribe({
+
+    this.sendSearchRequest(query).subscribe({
       next: albums => {
         this.albumsFound.next(albums)
       }
     })
   }
 
+
+  sendSearchRequest(query: string) {
+    return this.http.get<AlbumsSearchResponse>(this.api_url, {
+      params: {
+        type: 'album',
+        q: query
+      },
+    }).pipe(
+      map(res => res.albums.items)
+    );
+  }
 }
 
 // console.log(MusicSearchService)

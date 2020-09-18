@@ -2,11 +2,13 @@
   <div class="col">
         
     <!-- [(selected)]="selected" -->
-    <app-playlist-list     
+    <app-playlist-list     #somg
       [selected]="selected"
       (selectedChange)="selectPlaylist($event)"
       [items]="playlists">
     </app-playlist-list>
+
+    <!-- {{somg.selectedChange.subscribe()}} -->
         
 
   </div>
