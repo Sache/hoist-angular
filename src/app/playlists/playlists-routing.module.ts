@@ -5,7 +5,16 @@ import { NgModule } from '@angular/core';
 const routes: Routes = [
   {
     path:'playlists',
-    component: PlaylistViewComponent
+    children:[
+      {
+        path:'',
+        component: PlaylistViewComponent
+      },
+      {
+        path:':id',
+        component: PlaylistViewComponent
+      },
+    ]
   }
 ];
 

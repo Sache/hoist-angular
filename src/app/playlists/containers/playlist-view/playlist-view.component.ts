@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs/operators';
 import { Playlist } from 'src/app/core/models/playlist';
 
 @Component({
@@ -12,21 +14,21 @@ export class PlaylistViewComponent implements OnInit {
   playlists: Playlist[] = [
     {
       id: 123,
-      type:'Playlist',
+      type: 'Playlist',
       name: 'pancakes 1',
       public: true,
       description: 'Test'
     },
     {
       id: 234,
-      type:'Playlist',
+      type: 'Playlist',
       name: 'pancakes 2',
       public: false,
       description: 'Test'
     },
     {
       id: 345,
-      type:'Playlist',
+      type: 'Playlist',
       name: 'pancakes 3',
       public: true,
       description: 'Test'
@@ -35,7 +37,14 @@ export class PlaylistViewComponent implements OnInit {
 
   selected: Playlist | null = null
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) {
+    route.paramMap.pipe(map(param => param.get('id')))
+      .subscribe(id => {
+        if (id) {
+          this.selected = this.playlists.find(p => p.id == parseInt(id)) || null
+        }
+      })
+  }
 
   selectPlaylist(playlist: Playlist) {
     this.selected = playlist == this.selected ? null : playlist
