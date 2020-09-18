@@ -5,7 +5,7 @@
     <app-playlist-list     #somg
       [selected]="selected"
       (selectedChange)="selectPlaylist($event)"
-      [items]="playlists">
+      [items]="playlists | async">
     </app-playlist-list>
 
     <!-- {{somg.selectedChange.subscribe()}} -->

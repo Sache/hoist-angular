@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Playlist } from 'src/app/core/models/playlist';
+import { PlaylistsService } from 'src/app/core/services/playlists.service';
 
 @Component({
   selector: 'app-playlist-view',
@@ -11,43 +12,30 @@ import { Playlist } from 'src/app/core/models/playlist';
 export class PlaylistViewComponent implements OnInit {
   mode: 'details' | 'form' = 'details'
 
-  playlists: Playlist[] = [
-    {
-      id: 123,
-      type: 'Playlist',
-      name: 'pancakes 1',
-      public: true,
-      description: 'Test'
-    },
-    {
-      id: 234,
-      type: 'Playlist',
-      name: 'pancakes 2',
-      public: false,
-      description: 'Test'
-    },
-    {
-      id: 345,
-      type: 'Playlist',
-      name: 'pancakes 3',
-      public: true,
-      description: 'Test'
-    },
-  ]
+  playlists = this.service.getUserPlaylists()
 
   selected: Playlist | null = null
 
-  constructor(private route: ActivatedRoute) {
-    route.paramMap.pipe(map(param => param.get('id')))
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private service: PlaylistsService
+  ) {
+
+    this.route.paramMap.pipe(map(param => param.get('id')))
       .subscribe(id => {
         if (id) {
-          this.selected = this.playlists.find(p => p.id == parseInt(id)) || null
+          this.service.getPlaylistById(parseInt(id)).subscribe(playlist => {
+            this.selected = playlist
+          })
         }
       })
   }
 
   selectPlaylist(playlist: Playlist) {
-    this.selected = playlist == this.selected ? null : playlist
+    this.router.navigate(['/playlists', playlist.id], {
+      // relativeTo: this.route
+    })
   }
 
   ngOnInit(): void {
@@ -63,12 +51,12 @@ export class PlaylistViewComponent implements OnInit {
   }
 
   savePlaylist(draft: Playlist) {
-    const index = this.playlists.findIndex(p => p.id == draft.id)
-    if (index !== -1) {
-      this.playlists[index] = draft
-      this.selected = draft
-    }
-    this.mode = 'details';
+    // const index = this.playlists.findIndex(p => p.id == draft.id)
+    // if (index !== -1) {
+    //   this.playlists[index] = draft
+    //   this.selected = draft
+    // }
+    // this.mode = 'details';
   }
 
 }
