@@ -1,7 +1,8 @@
 
 <div class="card-group">
 
-  <app-album-card *ngFor="let result of results" [album]="result">
+  <app-album-card   [routerLink]="[result.id]"  
+  *ngFor="let result of results" [album]="result">
   </app-album-card>
 
 </div>

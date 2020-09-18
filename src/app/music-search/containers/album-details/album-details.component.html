@@ -1,1 +1,37 @@
-<p>album-details works!</p>
+<!-- <p>album-details works!</p> -->
+
+<!-- {{ album_id | async }} -->
+
+<div class="row" *ngIf="album | async as albumLoaded else loading">
+  <div class="col">
+    <app-album-card [album]="albumLoaded"></app-album-card>
+    
+    <h5>Popularity</h5>
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" 
+        [style.width.%]="albumLoaded.popularity"></div>
+    </div>
+
+  </div>
+  <div class="col">
+    <audio #audioRef controls class="w-100 mb-3" [src]="selectedTrack?.preview_url"></audio>
+
+    <h5>Tracks</h5>
+    <div class="list-group">
+      <div class="list-group-item" *ngFor="let track of albumLoaded.tracks.items"
+        [class.active]="track.id == selectedTrack?.id "
+        (click)="select(track)">
+
+        {{track.name}}
+        
+        <span class="float-right">{{track.duration_ms | duration}}</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<ng-template #loading>
+  <p class="alert alert-info">Please wait loading...</p>
+</ng-template>

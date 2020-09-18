@@ -73,6 +73,10 @@ export class MusicSearchService {
       map(res => res.albums.items)
     );
   }
+
+  getAlbumById(id:string){
+    return this.http.get<Album>(`https://api.spotify.com/v1/albums/${id}`)
+  }
 }
 
 // console.log(MusicSearchService)

@@ -14,7 +14,7 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
-        path: 'albums/:id',
+        path: 'albums/:album_id',
         component: AlbumDetailsComponent
       },
       {

@@ -4,12 +4,13 @@ import { CardComponent } from './card/card.component';
 import { YesnoPipe } from './yesno.pipe';
 
 import {FormsModule} from '@angular/forms';
-import { MusicServiceProviderComponent } from './music-service-provider/music-service-provider.component'
+import { MusicServiceProviderComponent } from './music-service-provider/music-service-provider.component';
+import { DurationPipe } from './duration.pipe'
 
 @NgModule({
   declarations: [
     CardComponent, 
-    YesnoPipe, MusicServiceProviderComponent
+    YesnoPipe, MusicServiceProviderComponent, DurationPipe
   ],
   imports: [
     CommonModule,
@@ -19,7 +20,8 @@ import { MusicServiceProviderComponent } from './music-service-provider/music-se
     CardComponent,
     YesnoPipe,
     FormsModule,
-    MusicServiceProviderComponent
+    MusicServiceProviderComponent,
+    DurationPipe
   ]
 })
 export class SharedModule { }
