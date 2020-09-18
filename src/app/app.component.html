@@ -20,6 +20,12 @@
           <a class="nav-link" routerLinkActive="active" routerLink="/playlists">Playlists</a>
         </li>
       </ul>
+
+      <p class="ml-auto text-white" *ngIf="user.userChange | async as userData">
+        {{userData.display_name}},
+
+        <a (click)="logout()">Logout</a>
+      </p>
     </div>
   </div>
 </nav>

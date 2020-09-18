@@ -1,24 +1,42 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { PagingObject } from '../models/PagingObject';
 import { Playlist } from '../models/playlist';
+import { UserProfileService } from './user-profile.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlaylistsService {
-  constructor() { }
+  api_url = 'https://api.spotify.com/v1'
+  constructor(
+    private userservice: UserProfileService,
+    private http: HttpClient,
+
+  ) { }
 
   getUserPlaylists(): Observable<Playlist[]> {
-    return of(this.playlists)
+    return this.http.get<PagingObject<Playlist>>(this.api_url + '/me/playlists').pipe(map(res => res.items))
   }
 
-  getPlaylistById(id: string) {
-    console.log('fetch')
-    return of(this.playlists.find(p => p.id == parseInt(id)))
+  getPlaylistById(playlist_id: string) {
+    return this.http.get<Playlist>(this.api_url+`/playlists/${playlist_id}`)
   }
 
-  
-  savePlaylist(draft: Playlist):Observable<Playlist> {
+
+  savePlaylist(draft: Playlist): Observable<Playlist> {
+    const user_id = this.userservice.getUser()?.id
+
+    if (draft.id == undefined) {
+      return this.http.post<Playlist>(this.api_url + `/users/${user_id}/playlists`, {
+        name: draft.name,
+        public: draft.public,
+        description: draft.description
+      })
+
+    }
     return of({} as Playlist)
   }
 

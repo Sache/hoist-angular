@@ -16,7 +16,12 @@ export const environment = {
     client_id: '210fd9ef4508426f808b0140e484ac1d',
     redirect_uri: 'http://localhost:4200/',
     response_type: 'token',
-    scopes: [],
+    scopes: [
+      'playlist-read-collaborative',
+      'playlist-modify-public',
+      'playlist-read-private',
+      'playlist-modify-private',
+    ],
     show_dialog: true
   } as AuthConfig
 };

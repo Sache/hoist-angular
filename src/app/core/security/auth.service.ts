@@ -1,5 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 export abstract class AuthConfig {
   auth_url = ''
@@ -16,6 +17,10 @@ export abstract class AuthConfig {
 export class AuthService {
   token: string | null = null
 
+  private loggedIn = new BehaviorSubject<boolean>(false)
+  public loggedInChange = this.loggedIn.asObservable()
+
+
   constructor(private config: AuthConfig) { }
 
   init() {
@@ -27,6 +32,11 @@ export class AuthService {
     if (!this.token) {
       this.authenticate()
     }
+  }
+
+  logout(){
+    this.token = ''
+    this.authenticate()
   }
 
   authenticate() {
@@ -60,6 +70,7 @@ export class AuthService {
       access_token = rawToken && JSON.parse(rawToken)
     }
     this.token = access_token
+    this.loggedIn.next(true)
 
     return access_token
   }
