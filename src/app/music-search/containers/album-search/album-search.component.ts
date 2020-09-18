@@ -21,27 +21,23 @@ export class AlbumSearchComponent implements OnInit, OnDestroy {
     this.service.searchAlbums(query)
   }
 
-
   ngOnInit(): void {
-    this.sub1 = this.service.getAlbumsUpdates()
-      // .pipe(tap(console.log))
-      .subscribe({
-        next: albums => this.results = albums,
-        error: error => this.message = error.message,
-      })
-
-    this.sub2 = this.service.query.subscribe({
-      next: query => {
-        this.query = query
-      }
-    })
+    this.sub
+      .add(this.service.getAlbumsUpdates()
+        .subscribe({
+          next: albums => this.results = albums,
+          error: error => this.message = error.message,
+        }))
+      .add(this.service.query.subscribe({
+        next: query => {
+          this.query = query
+        }
+      }))
   }
 
-  sub1!: Subscription
-  sub2!: Subscription
+  sub = new Subscription()
 
   ngOnDestroy() {
-    this.sub1.unsubscribe()
-    this.sub2.unsubscribe()
+    this.sub.unsubscribe()
   }
 }
