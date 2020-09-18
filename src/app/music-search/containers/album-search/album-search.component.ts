@@ -12,29 +12,21 @@ import { MusicSearchService } from 'src/app/core/services/music-search.service';
 })
 export class AlbumSearchComponent implements OnInit {
   message = ''
-  results!: Observable<Album[]>
+  results: Observable<Album[]> = this.service.getAlbumsUpdates().pipe(
+    share()
+  )
 
-  query =  this.service.query
+  query = this.service.query
 
   constructor(private service: MusicSearchService) { }
 
   searchAlbums(query: string) {
-    // this.results =  this.service.searchAlbums(query)
-    this.results = this.service.sendSearchRequest(query).pipe(
-      // publishReplay()
-      // multicast(new ReplaySubject()),
-      // refCount()
-      // share()
-      shareReplay()      
-    )
+    this.service.searchAlbums(query)
   }
 
   ngOnInit(): void {
- 
+
   }
 
-  connect(){
-    (this.results as ConnectableObservable<Album[]>).connect()
-  }
 
 }
