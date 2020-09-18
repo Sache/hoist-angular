@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SyncSearchComponent implements OnInit {
 
+  hide = false
+
   constructor() { }
 
   ngOnInit(): void {
