@@ -1,10 +1,7 @@
-
 <!-- .row*2>.col -->
 <div class="row">
   <div class="col">
-    <app-search-form
-      [query]="query | async"
-     (searchChange)="searchAlbums($event)">
+    <app-search-form [query]="query | async" (searchChange)="searchAlbums($event)">
     </app-search-form>
   </div>
 </div>
@@ -13,9 +10,16 @@
   <div class="col">
     {{message}}
 
-    <button (click)="hide=!hide">toggle</button>
+    <!-- <button (click)="hide=!hide">toggle</button>
+    *ngIf="hide" -->
 
-    <app-search-results 
-    *ngIf="hide" [results]="results | async"></app-search-results>
+    <div>
+
+      <p>Found {{(results | async)?.length}} results </p>
+
+      <app-search-results [results]="results | async"></app-search-results>
+
+    </div>
+
   </div>
 </div>

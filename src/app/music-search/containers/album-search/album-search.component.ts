@@ -12,15 +12,15 @@ import { MusicSearchService } from 'src/app/core/services/music-search.service';
 })
 export class AlbumSearchComponent implements OnInit {
   message = ''
-  results?: Observable<Album[]>
+  results!: Observable<Album[]>
 
   query =  this.service.query
 
   constructor(private service: MusicSearchService) { }
 
   searchAlbums(query: string) {
-    // this.service.searchAlbums(query)
-    return this.results = this.service.sendSearchRequest(query)
+    // this.results =  this.service.searchAlbums(query)
+    this.results = this.service.sendSearchRequest(query)
   }
 
   ngOnInit(): void {
