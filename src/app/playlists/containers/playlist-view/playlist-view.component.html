@@ -3,7 +3,7 @@
         
     <!-- [(selected)]="selected" -->
     <app-playlist-list     #somg
-      [selected]="selected"
+      [selected]="selectedPlaylist | async"
       (selectedChange)="selectPlaylist($event)"
       [items]="playlists | async">
     </app-playlist-list>
@@ -14,7 +14,7 @@
   </div>
   <div class="col">
 
-    <div [ngSwitch]="mode" *ngIf="selected">
+    <div [ngSwitch]="mode" *ngIf="selectedPlaylist | async as selected">
 
       <div *ngSwitchDefault>
         

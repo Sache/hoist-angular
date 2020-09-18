@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { iif, of } from 'rxjs';
+import { filter, map, mergeAll, mergeMap, shareReplay, switchMap } from 'rxjs/operators';
 import { Playlist } from 'src/app/core/models/playlist';
 import { PlaylistsService } from 'src/app/core/services/playlists.service';
 
@@ -14,23 +15,19 @@ export class PlaylistViewComponent implements OnInit {
 
   playlists = this.service.getUserPlaylists()
 
-  selected: Playlist | null = null
+  selectedPlaylist = this.route.paramMap.pipe(
+    map(param => param.get('id')),
+    switchMap(id => id ?
+      this.service.getPlaylistById(id) :
+      of(undefined)),
+    shareReplay()
+  )
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private service: PlaylistsService
-  ) {
-
-    this.route.paramMap.pipe(map(param => param.get('id')))
-      .subscribe(id => {
-        if (id) {
-          this.service.getPlaylistById(parseInt(id)).subscribe(playlist => {
-            this.selected = playlist
-          })
-        }
-      })
-  }
+  ) { }
 
   selectPlaylist(playlist: Playlist) {
     this.router.navigate(['/playlists', playlist.id], {
@@ -51,6 +48,7 @@ export class PlaylistViewComponent implements OnInit {
   }
 
   savePlaylist(draft: Playlist) {
+    this.service.savePlaylist(draft)
     // const index = this.playlists.findIndex(p => p.id == draft.id)
     // if (index !== -1) {
     //   this.playlists[index] = draft
