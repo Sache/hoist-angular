@@ -40,12 +40,13 @@ export class AlbumSearchComponent implements OnInit {
   searchAlbums(query: string) {
     // this.router.navigate(['/search','albums'],{})
    
-    this.router.navigate([], {
-      relativeTo: this.route,
-      replaceUrl:true,
-      queryParams: {
-        query
-      }
-    })
+    this.service.searchAlbums(query)
+    // this.router.navigate([], {
+    //   relativeTo: this.route,
+    //   replaceUrl:true,
+    //   queryParams: {
+    //     query
+    //   }
+    // })
   }
 }

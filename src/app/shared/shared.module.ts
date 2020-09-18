@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { CardComponent } from './card/card.component';
 import { YesnoPipe } from './yesno.pipe';
 
-import {FormsModule} from '@angular/forms'
+import {FormsModule} from '@angular/forms';
+import { MusicServiceProviderComponent } from './music-service-provider/music-service-provider.component'
 
 @NgModule({
   declarations: [
     CardComponent, 
-    YesnoPipe
+    YesnoPipe, MusicServiceProviderComponent
   ],
   imports: [
     CommonModule,
@@ -17,7 +18,8 @@ import {FormsModule} from '@angular/forms'
   exports: [
     CardComponent,
     YesnoPipe,
-    FormsModule
+    FormsModule,
+    MusicServiceProviderComponent
   ]
 })
 export class SharedModule { }
