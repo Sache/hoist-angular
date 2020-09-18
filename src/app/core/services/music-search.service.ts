@@ -3,8 +3,8 @@ import { EventEmitter, Inject, Injectable } from '@angular/core';
 import { Album, AlbumsSearchResponse } from '../models/album';
 import { AuthService } from '../security/auth.service';
 import { SEARCH_API_URL } from './tokens';
-import { catchError, concatAll, exhaust, map, mergeAll, pluck, startWith, switchAll, switchMap, switchMapTo, tap } from 'rxjs/operators'
-import { BehaviorSubject, concat, EMPTY, merge, Observable, of, ReplaySubject, Subject, throwError } from 'rxjs';
+import { catchError, concatAll, delay, exhaust, filter, map, mergeAll, pluck, startWith, switchAll, switchMap, switchMapTo, tap } from 'rxjs/operators'
+import { BehaviorSubject, concat, EMPTY, from, merge, Observable, of, ReplaySubject, Subject, throwError } from 'rxjs';
 
 @Injectable({
   // providedIn: CoreModule
@@ -26,6 +26,7 @@ export class MusicSearchService {
     (window as any).subject = this.albumsFound
 
     this.queryChange.pipe(
+      // filter(q => q !== ''),
       map(query => ({
         type: 'album',
         q: query

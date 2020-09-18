@@ -5,11 +5,17 @@ import { SyncSearchComponent } from './containers/sync-search/sync-search.compon
 
 const routes: Routes = [
   {
-    path:'search',
-    component: AlbumSearchComponent
+    path: 'search',
+    children: [
+      {
+        path: 'albums',
+        component: AlbumSearchComponent
+      },
+    ]
   },
+
   {
-    path:'sync',
+    path: 'sync',
     component: SyncSearchComponent
   }
 ];

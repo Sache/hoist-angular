@@ -8,7 +8,9 @@ import { Component, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  title = 'Hoist Angular Team';
+  title = 'MusicApp';
+
+  expanded = false
 
   constructor() {  }
 
