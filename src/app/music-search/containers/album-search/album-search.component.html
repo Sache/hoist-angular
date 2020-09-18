@@ -10,16 +10,23 @@
   <div class="col">
     {{message}}
 
-    <!-- <button (click)="hide=!hide">toggle</button>
-    *ngIf="hide" -->
+    <button (click)="hide=!hide">toggle</button>
+ 
 
-    <div *ngIf="results | async as albums">
+    <button (click)="connect()">Connect</button>
+    
+    <ng-container  *ngIf="hide" >
 
+      <div *ngIf="results | async as albums">
       <p>Found {{albums.length}} results </p>
-
-      <app-search-results [results]="albums"></app-search-results>
-
     </div>
+
+
+      <div *ngIf="results | async as albums">
+        <app-search-results [results]="albums"></app-search-results>
+      </div>
+      
+    </ng-container>
 
   </div>
 </div>

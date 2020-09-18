@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
-import { Observable, Subject, Subscription } from 'rxjs';
-import { takeUntil, takeWhile, tap } from 'rxjs/operators';
+import { ConnectableObservable, Observable, ReplaySubject, Subject, Subscription } from 'rxjs';
+import { multicast, publish, publishReplay, refCount, share, shareReplay, takeUntil, takeWhile, tap } from 'rxjs/operators';
 import { Album } from 'src/app/core/models/album';
 import { MusicSearchService } from 'src/app/core/services/music-search.service';
 
@@ -20,11 +20,21 @@ export class AlbumSearchComponent implements OnInit {
 
   searchAlbums(query: string) {
     // this.results =  this.service.searchAlbums(query)
-    this.results = this.service.sendSearchRequest(query)
+    this.results = this.service.sendSearchRequest(query).pipe(
+      // publishReplay()
+      // multicast(new ReplaySubject()),
+      // refCount()
+      // share()
+      shareReplay()      
+    )
   }
 
   ngOnInit(): void {
  
+  }
+
+  connect(){
+    (this.results as ConnectableObservable<Album[]>).connect()
   }
 
 }
