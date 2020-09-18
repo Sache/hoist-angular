@@ -13,11 +13,11 @@
     <!-- <button (click)="hide=!hide">toggle</button>
     *ngIf="hide" -->
 
-    <div>
+    <div *ngIf="results | async as albums">
 
-      <p>Found {{(results | async)?.length}} results </p>
+      <p>Found {{albums.length}} results </p>
 
-      <app-search-results [results]="results | async"></app-search-results>
+      <app-search-results [results]="albums"></app-search-results>
 
     </div>
 
