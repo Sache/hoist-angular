@@ -83,16 +83,14 @@ export class SearchFormComponent implements OnInit {
 
     const valueChanges = this.queryForm.get('query')?.valueChanges!;
     const statusChanges = this.queryForm.get('query')?.statusChanges!;
+    const valid = statusChanges.pipe(filter((status) => status == "VALID"))
 
-    combineLatest([statusChanges, valueChanges]).pipe(
-      filter(([status]) => status == "VALID"),
+    valid.pipe(
+      withLatestFrom(valueChanges),
       map(([, value]) => value),
       distinctUntilChanged(),
       debounceTime(400)
-    )
-      .subscribe(query => {
-        this.search(query)
-      })
+    ).subscribe(query => this.search(query))
 
   }
 

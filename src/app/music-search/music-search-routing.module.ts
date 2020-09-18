@@ -8,6 +8,11 @@ const routes: Routes = [
     path: 'search',
     children: [
       {
+        path: '', 
+        redirectTo: 'albums',
+        pathMatch: 'full'
+      },
+      {
         path: 'albums',
         component: AlbumSearchComponent
       },
