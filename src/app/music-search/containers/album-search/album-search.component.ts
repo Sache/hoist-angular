@@ -10,28 +10,38 @@ import { MusicSearchService } from 'src/app/core/services/music-search.service';
   styleUrls: ['./album-search.component.scss'],
   // providers:[MusicSearchService]
 })
-export class AlbumSearchComponent implements OnInit,OnDestroy{
+export class AlbumSearchComponent implements OnInit, OnDestroy {
   message = ''
   results: Album[] = []
-  
+  query = '';
+
   constructor(private service: MusicSearchService) { }
 
   searchAlbums(query: string) {
     this.service.searchAlbums(query)
   }
 
-  sub!:Subscription 
-  
+
   ngOnInit(): void {
-    this.sub = this.service.getAlbumsUpdates()
-    .pipe(tap(console.log))
-    .subscribe({
-      next: albums => this.results = albums,
-      error: error => this.message = error.message,
+    this.sub1 = this.service.getAlbumsUpdates()
+      // .pipe(tap(console.log))
+      .subscribe({
+        next: albums => this.results = albums,
+        error: error => this.message = error.message,
+      })
+
+    this.sub2 = this.service.query.subscribe({
+      next: query => {
+        this.query = query
+      }
     })
   }
 
-  ngOnDestroy(){
-    this.sub.unsubscribe()
+  sub1!: Subscription
+  sub2!: Subscription
+
+  ngOnDestroy() {
+    this.sub1.unsubscribe()
+    this.sub2.unsubscribe()
   }
 }

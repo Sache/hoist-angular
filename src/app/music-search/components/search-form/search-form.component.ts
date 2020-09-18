@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ElementRef, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef, EventEmitter, Output, Input, OnChanges, SimpleChanges, HostBinding } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, NgModel, Validators, ValidatorFn, Validator, ValidationErrors, AsyncValidatorFn } from '@angular/forms';
 import { combineLatest, from, Observable, OperatorFunction, pipe, Subject } from 'rxjs';
 import { debounceTime, distinct, distinctUntilChanged, filter, map, withLatestFrom } from 'rxjs/operators';
@@ -48,6 +48,22 @@ export class SearchFormComponent implements OnInit {
       // .subscribe({ next:()=>{ /* ... */}})
     }
 
+  // @Input() query = '';
+  // ngOnChanges(changes:SimpleChanges){ changes['query'].currentValue }
+
+  @Input()
+  set query(query: string) {
+    (this.queryForm.get('query') as FormControl)?.setValue(query, {
+      emitEvent: false,
+      // onlySelf:true,
+    })
+  }
+
+  @HostBinding('style.border-bottom-width.px')
+  get size() {
+    return 12
+  }
+
   queryForm = this.fb.group({
     query: new FormControl('', [
       Validators.required,
@@ -63,12 +79,15 @@ export class SearchFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.queryForm.markAsPristine();
+
     const valueChanges = this.queryForm.get('query')?.valueChanges!;
     const statusChanges = this.queryForm.get('query')?.statusChanges!;
 
     combineLatest([statusChanges, valueChanges]).pipe(
       filter(([status]) => status == "VALID"),
-      map(([, value]) => value)
+      map(([, value]) => value),
+      distinctUntilChanged()
     )
       .subscribe(query => {
         this.search(query)

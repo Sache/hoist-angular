@@ -12,6 +12,9 @@ import { BehaviorSubject, concat, EMPTY, merge, Observable, of, ReplaySubject, S
 })
 export class MusicSearchService {
   private albumsFound = new BehaviorSubject<Album[]>(mockAlbums as Album[])
+  
+  private queryChange = new BehaviorSubject<string>('batman')
+  public query = this.queryChange.asObservable()
 
   constructor(
     @Inject(SEARCH_API_URL) public api_url: string,
@@ -27,6 +30,8 @@ export class MusicSearchService {
   }
 
   searchAlbums(query: string) {
+    this.queryChange.next(query)
+    
     this.http.get<AlbumsSearchResponse>(this.api_url, {
       params: {
         type: 'album',
