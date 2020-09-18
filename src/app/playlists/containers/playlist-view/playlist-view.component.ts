@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { iif, of } from 'rxjs';
-import { filter, map, mergeAll, mergeMap, shareReplay, switchMap } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, iif, of, Subject } from 'rxjs';
+import { filter, map, mergeAll, mergeMap, shareReplay, startWith, switchMap } from 'rxjs/operators';
 import { Playlist } from 'src/app/core/models/playlist';
 import { PlaylistsService } from 'src/app/core/services/playlists.service';
 
@@ -15,8 +15,17 @@ export class PlaylistViewComponent implements OnInit {
 
   playlists = this.service.getUserPlaylists()
 
-  selectedPlaylist = this.route.paramMap.pipe(
+  fetchPlaylist = new BehaviorSubject(null)
+
+  selectedId = this.route.paramMap.pipe(
     map(param => param.get('id')),
+  )
+
+  selectedPlaylist = combineLatest([
+    this.selectedId,
+    this.fetchPlaylist
+  ]).pipe(
+    map(([id, _]) => id),
     switchMap(id => id ?
       this.service.getPlaylistById(id) :
       of(undefined)),
@@ -48,12 +57,9 @@ export class PlaylistViewComponent implements OnInit {
   }
 
   savePlaylist(draft: Playlist) {
-    this.service.savePlaylist(draft)
-    // const index = this.playlists.findIndex(p => p.id == draft.id)
-    // if (index !== -1) {
-    //   this.playlists[index] = draft
-    //   this.selected = draft
-    // }
+    this.service.savePlaylist(draft).subscribe(() => {
+      this.fetchPlaylist.next()
+    })
     // this.mode = 'details';
   }
 

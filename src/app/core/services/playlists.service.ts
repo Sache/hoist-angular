@@ -6,15 +6,20 @@ import { Playlist } from '../models/playlist';
   providedIn: 'root'
 })
 export class PlaylistsService {
-
   constructor() { }
 
   getUserPlaylists(): Observable<Playlist[]> {
     return of(this.playlists)
   }
 
-  getPlaylistById(id: number) {
-    return of(this.playlists.find(p => p.id == id))
+  getPlaylistById(id: string) {
+    console.log('fetch')
+    return of(this.playlists.find(p => p.id == parseInt(id)))
+  }
+
+  
+  savePlaylist(draft: Playlist):Observable<Playlist> {
+    return of({} as Playlist)
   }
 
 
