@@ -9,6 +9,7 @@ import { SearchResultsComponent } from './components/search-results/search-resul
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SyncSearchComponent } from './containers/sync-search/sync-search.component';
+import { AlbumDetailsComponent } from './containers/album-details/album-details.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { SyncSearchComponent } from './containers/sync-search/sync-search.compon
       AlbumCardComponent,
       SearchFormComponent,
       SearchResultsComponent,
-      SyncSearchComponent
+      SyncSearchComponent,
+      AlbumDetailsComponent
     ],
   imports: [
     CommonModule,
