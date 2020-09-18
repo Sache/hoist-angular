@@ -3,7 +3,7 @@ import { EventEmitter, Inject, Injectable } from '@angular/core';
 import { Album, AlbumsSearchResponse } from '../models/album';
 import { AuthService } from '../security/auth.service';
 import { SEARCH_API_URL } from './tokens';
-import { catchError, map, pluck, startWith, tap } from 'rxjs/operators'
+import { catchError, concatAll, exhaust, map, mergeAll, pluck, startWith, switchAll, switchMap, switchMapTo, tap } from 'rxjs/operators'
 import { BehaviorSubject, concat, EMPTY, merge, Observable, of, ReplaySubject, Subject, throwError } from 'rxjs';
 
 @Injectable({
@@ -16,13 +16,41 @@ export class MusicSearchService {
   private queryChange = new BehaviorSubject<string>('batman')
   public query = this.queryChange.asObservable()
 
+  public errorNotifications = new Subject<Error>();
+
   constructor(
     @Inject(SEARCH_API_URL) public api_url: string,
     private http: HttpClient,
   ) {
-    this.albumsFound.getValue(); // get current value without subscribing
-
+    // this.albumsFound.getValue(); // get current value without subscribing
     (window as any).subject = this.albumsFound
+
+    this.queryChange.pipe(
+      map(query => ({
+        type: 'album',
+        q: query
+      })),
+      // mergeMap(...
+      // concatMap(...
+      // exhaustMap(...
+      switchMap(params => this.http.get<AlbumsSearchResponse>(this.api_url, { params }).pipe(
+        catchError((err) => { this.errorNotifications.next(err); return EMPTY })
+      )),
+      // o => o, //  Observable<Observable<AlbumsSearchResponse>>
+      // mergeAll(),
+      // concatAll(),
+      // exhaust(), // throttle
+      // switchAll(), // debouce
+      // o => o, // Observable<AlbumsSearchResponse>
+      map(res => res.albums.items)
+    )
+      .subscribe(this.albumsFound)
+
+    // .subscribe({
+    //   next: albums => {
+    //     this.albumsFound.next(albums)
+    //   }
+    // })
   }
 
   getAlbumsUpdates(): Observable<Album[]> {
@@ -31,12 +59,6 @@ export class MusicSearchService {
 
   searchAlbums(query: string) {
     this.queryChange.next(query)
-
-    this.sendSearchRequest(query).subscribe({
-      next: albums => {
-        this.albumsFound.next(albums)
-      }
-    })
   }
 
 
