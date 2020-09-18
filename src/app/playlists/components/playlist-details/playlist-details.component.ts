@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { Playlist } from 'src/app/core/models/playlist';
 
 @Component({
   selector: 'app-playlist-details',
   templateUrl: './playlist-details.component.html',
-  styleUrls: ['./playlist-details.component.scss']
+  styleUrls: ['./playlist-details.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlaylistDetailsComponent implements OnInit {
 

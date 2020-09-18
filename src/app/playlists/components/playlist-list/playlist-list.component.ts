@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { Playlist } from 'src/app/core/models/playlist';
 import { NgForOfContext, NgForOf } from '@angular/common';
 
@@ -9,6 +9,7 @@ NgForOfContext
   selector: 'app-playlist-list',
   templateUrl: './playlist-list.component.html',
   styleUrls: ['./playlist-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
   // encapsulation: ViewEncapsulation.ShadowDom
   // encapsulation: ViewEncapsulation.Emulated
   // inputs: [

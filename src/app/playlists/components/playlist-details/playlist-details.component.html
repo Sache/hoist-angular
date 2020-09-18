@@ -2,26 +2,29 @@
 
 <!-- <pre>{{ playlist | json }}</pre> -->
 
-<dl [id]="'playlist_' + playlist.id" 
-    [attr.data-id]="playlist.id"
-    [title]="playlist.name">
 
-  <dt>Name:</dt>
-  <dd>{{ playlist.name | titlecase  }}</dd>
+<app-card>
 
-  <dt>Public:</dt>
+  <dl [id]="'playlist_' + playlist.id" [attr.data-id]="playlist.id" [title]="playlist.name">
 
-  <dd class="public-or-private" 
-    [style.font-size.px]="20 + 4"    
-   [class.is-public]=" playlist.public" 
-   [class.is-private]=" ! playlist.public">
-    {{ playlist.public | yesno }}</dd>
+    <dt>Name:</dt>
+    <dd>{{ playlist.name | titlecase  }}</dd>
 
+    <dt>Public:</dt>
 
-  <dt>Description:</dt>
-  <dd>{{ playlist.description }}</dd>
-
-</dl>
+    <dd class="public-or-private" [style.font-size.px]="20 + 4" [class.is-public]=" playlist.public"
+      [class.is-private]=" ! playlist.public">
+      {{ playlist.public | yesno }}</dd>
 
 
-<button class="btn btn-info" (click)="edit()">Edit</button>
+    <dt>Description:</dt>
+    <dd>{{ playlist.description }}</dd>
+
+  </dl>
+  
+  <ng-container ngProjectAs="title">{{playlist.name}}</ng-container>
+
+  <button class="btn btn-danger" ngProjectAs="footer">Cancel</button>
+  
+  <button class="btn btn-info" ngProjectAs="footer" (click)="edit()">Edit</button>
+</app-card>

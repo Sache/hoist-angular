@@ -4,8 +4,8 @@
     <!-- [(selected)]="selected" -->
     <app-playlist-list     #somg
       [selected]="selectedPlaylist | async"
-      (selectedChange)="selectPlaylist($event)"
-      [items]="playlists | async">
+      [items]="playlists | async"
+      (selectedChange)="selectPlaylist($event)">
     </app-playlist-list>
 
     <!-- {{somg.selectedChange.subscribe()}} -->
@@ -20,22 +20,26 @@
 
       <div *ngSwitchDefault>
         
-        <app-playlist-details
-        (editClicked)="edit()"
-        [playlist]="selected">
-        </app-playlist-details>
+          
+          <app-playlist-details
+          (editClicked)="edit()"
+          [playlist]="selected">
+          </app-playlist-details>
+          
+        
 
       </div>
 
       <div *ngSwitchCase=" 'form' ">
-        <app-playlist-form
-        (cancelClicked)="cancel()"
-        (saveClicked)="savePlaylist($event)"
-        [playlist]="selected"
-        ></app-playlist-form>
+   
+          <app-playlist-form
+          (cancelClicked)="cancel()"
+          (saveClicked)="savePlaylist($event)"
+          [playlist]="selected"
+          ></app-playlist-form>
+         
 
       </div>
-
     </div>
 
   </div>
